@@ -1,0 +1,157 @@
+:root {
+  --base-lightest: white;
+  --base-lighter: #d8dbde;
+  --base-light: #b6b9bc;
+  --base-dark: #5c5e5f;
+  --base-darker: #3b3c3d;
+  --base-darkest: #1b1b1c;
+  --primary-lightest: #f198ff;
+  --primary-lighter: #eb67ff;
+  --primary-light: #e538ff;
+  --primary-dark: #9328a4;
+  --primary-darker: #821193;
+  --primary-darkest: #6a007b;
+  --secondary-lightest: #ffedaa;
+  --secondary-lighter: #fbd754;
+  --secondary-light: #ffc800;
+  --secondary-dark: #bc9400;
+  --secondary-darker: #8e6f00;
+  --secondary-darkest: #755c00;
+}
+
+html {
+  font-size: 24px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: var(--base-lightest);
+  background: var(--base-darkest);
+}
+body {
+  overflow: hidden;
+}
+
+a {
+  color: var(--primary-lighter);
+  font-weight: bold;
+}
+a:focus,
+button:focus {
+  outline-style: solid;
+  outline: var(--secondary-light);
+  outline-width: 3px;
+}
+
+button,
+a.button {
+  background: var(--primary-light);
+  color: var(--base-darkest);
+  border-radius: 6px;
+  border: none;
+  padding: 3px 6px;
+  margin: 0;
+  line-height: 1;
+  display: block;
+}
+h1 {
+  margin: 0;
+  line-height: 1;
+  font-size: 1rem;
+}
+h1 a {
+  text-decoration: none;
+}
+p {
+  line-height: 1.8;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  align-items: stretch;
+}
+.app ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.app ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.ui-top {
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row-reverse;
+}
+.ui-main {
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+.ui-bottom {
+  display: flex;
+  align-items: flex-end;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 6px;
+}
+
+.text {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+.text-pulses {
+  white-space: nowrap;
+  font-size: 5vw;
+}
+
+.tool-list button {
+  width: 9.75vh;
+  height: 9.75vh;
+  margin: 0.5vh 0 0 0.5vh;
+}
+
+.play-button {
+  width: 17vh;
+  height: 17vh;
+  margin: 0 0 0.5vh 0.5vh;
+}
+
+.source-form {
+  flex-grow: 1;
+  display: flex;
+  padding: 6px;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+.source-description span {
+  display: none;
+}
+.source-description span.active {
+  display: block;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

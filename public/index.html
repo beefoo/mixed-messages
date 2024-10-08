@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mixed Messages by Brian Foo</title>
+    <meta
+      name="description"
+      content="A web app for messing with people's words"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+
+    <link rel="stylesheet" href="css/vendor/normalize.css" />
+    <link rel="stylesheet" href="css/app.css" />
+
+    <meta name="theme-color" content="#fafafa" />
+  </head>
+
+  <body>
+    <div id="app" class="app">
+      <div class="ui-top">
+        <div class="ui-main">
+          <nav class="main-nav">
+            <h1><a href="/about.html" target="_blank">Mixed messages</a></h1>
+            <button>Settings</button>
+          </nav>
+          <div class="text">
+            <div class="text-pulses">Say children, what does it all mean?</div>
+          </div>
+        </div>
+        <div class="ui-left">
+          <h2 class="visually-hidden">Tools</h2>
+          <ul class="tool-list">
+            <li>
+              <button class="tool-button tool-button-move" title="Move">
+                <span class="visually-hidden">Move</span>
+              </button>
+            </li>
+            <li>
+              <button class="tool-button tool-button-pitch" title="Pitch">
+                <span class="visually-hidden">Pitch</span>
+              </button>
+            </li>
+            <li>
+              <button class="tool-button tool-button-loudness" title="Loudness">
+                <span class="visually-hidden">Loudness</span>
+              </button>
+            </li>
+            <li>
+              <button class="tool-button tool-button-trim" title="Trim">
+                <span class="visually-hidden">Trim</span>
+              </button>
+            </li>
+            <li>
+              <button class="tool-button tool-button-duration" title="Duration">
+                <span class="visually-hidden">Duration</span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="tool-button tool-button-duplicate"
+                title="Duplicate"
+              >
+                <span class="visually-hidden">Duplicate</span>
+              </button>
+            </li>
+            <li>
+              <button class="tool-button tool-button-bandpass" title="Bandpass">
+                <span class="visually-hidden">Bandpass</span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="tool-button tool-button-distortion"
+                title="Distortion"
+              >
+                <span class="visually-hidden">Distortion</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="ui-bottom">
+        <button class="play-button" title="Toggle play">
+          <span class="visually-hidden">Toggle play</span>
+        </button>
+        <form class="source-form">
+          <label for="source-select">Currently playing:</label>
+          <select id="source-select" class="source-select">
+            <option value="laguardia" selected>
+              "Say children, what does it all mean?"
+            </option>
+            <option value="microphone">Record your own audio</option>
+            <option value="file">Select your own audio file</option>
+          </select>
+          <div class="source-description">
+            <span class="source-description-item active"
+              >by Fiorello La Guardia via
+              <a href="#" target="_blank">WNYC</a></span
+            >
+            <span class="source-description-microphone"
+              ><button>Re-record audio</button></span
+            >
+            <span class="source-description-file"
+              ><label for="source-description-file">Select a new file</label
+              ><input id="source-select-file" type="file" accept="audio/*"
+            /></span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>
