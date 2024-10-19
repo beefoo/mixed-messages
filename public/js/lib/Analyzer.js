@@ -1,4 +1,4 @@
-import Meyda from '../vendor/meyda/main.js';
+import Meyda from '../vendor/meyda.js';
 import nlp from '../vendor/compromise/one/compromise-one.mjs';
 import plg from '../vendor/compromise-speech/compromise-speech.mjs';
 
@@ -26,8 +26,8 @@ export default class Analyzer {
   }
 
   // Based on: https://github.com/meyda/meyda/issues/419
-  analyzeAudio(buffer) {
-    const mono_channel = buffer.getChannelData(0);
+  analyzeAudio(audio_buffer) {
+    const mono_channel = audio_buffer.getChannelData(0);
     const buffer_size = 2048;
     Meyda.bufferSize = buffer_size;
 

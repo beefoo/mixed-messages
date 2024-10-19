@@ -1,7 +1,8 @@
 {
-  "name": "boilerplate-web-app",
+  "name": "mixed-messages",
   "description": "My personal boilerplate for starting web apps",
   "scripts": {
+    "build_meyda": "./node_modules/.bin/esbuild node_modules/meyda/dist/esm/main.js --bundle --outfile=public/js/vendor/meyda.js --format=esm",
     "lint": "./node_modules/.bin/eslint",
     "start": "node server.js"
   },
@@ -12,9 +13,11 @@
     "meyda": "^5.6.3"
   },
   "devDependencies": {
+    "esbuild": "^0.24.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.30.0",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tslib": "^2.8.0"
   }
 }
