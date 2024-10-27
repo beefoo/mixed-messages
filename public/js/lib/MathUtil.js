@@ -27,6 +27,14 @@ export default class MathUtil {
     return (1.0 * b - a) * percent + a;
   }
 
+  static maxList(arr) {
+    return arr.reduce((a, b) => Math.max(a, b), -Infinity);
+  }
+
+  static minList(arr) {
+    return arr.reduce((a, b) => Math.min(a, b), Infinity);
+  }
+
   static mod(n, m) {
     return ((n % m) + m) % m;
   }
