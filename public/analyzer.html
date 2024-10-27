@@ -19,13 +19,19 @@
     <link rel="apple-touch-icon" href="icon.png" />
 
     <link rel="stylesheet" href="css/vendor/normalize.css" />
-    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/analyzer.css" />
 
     <meta name="theme-color" content="#fafafa" />
   </head>
 
   <body>
-    <div id="app" class="app"></div>
+    <div id="app" class="app">
+      <div id="audioviz" class="audioviz">
+        <canvas id="waveform" class="waveform"></canvas>
+        <div id="audiochunks" class="chunks"></div>
+      </div>
+      <div id="textviz" class="textviz"></div>
+    </div>
     <script src="js/analyzer.js" type="module"></script>
   </body>
 </html>
