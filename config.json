@@ -1,0 +1,91 @@
+{
+  "audioDirectoryIn": "./audio/",
+  "audioDirectoryOut": "./public/audio/",
+  "audioDirectoryQueue": "./queue/",
+  "audioFeatures": [
+    { "name": "duration", "description": "Length of audio clip" },
+    {
+      "name": "energy",
+      "description": "Indicator to the loudness of the signal"
+    },
+    {
+      "name": "spectralCentroid",
+      "description": "“Brightness” of a sound, e.g. a bass guitar (low spectral centroid) and a trumpet (high spectral centroid)"
+    },
+    {
+      "name": "spectralKurtosis",
+      "description": "Indicate “pitchiness / tonality” of a sound, where 0.0 is not tonal, and 1.0 is very tonal"
+    },
+    {
+      "name": "spectralSpread",
+      "description": "Differentiate between noisy (high spectral spread) and pitched sounds (low spectral spread)"
+    },
+    {
+      "name": "perceptualSharpness",
+      "description": "Perceived sharpness, where 0.0 is not sharp (e.g. bass-drum) and 1.0 very sharp (e.g. snare-drum)."
+    }
+  ],
+  "dataPrecision": 4,
+  "metadataFile": "metadata.csv",
+  "nonverbals": ["eh", "er", "hm", "mm", "uh", "um"],
+  "phoneticRules": [
+    { "phone": "ER", "validText": ["er"] },
+    { "phone": "TH", "validText": ["th"] }
+  ],
+  "textDirectoryIn": "./audio/",
+  "textgridDirectoryIn": "./audio/aligned/",
+  "textgridEditedDirectoryIn": "./audio/edited/",
+  "arpabet": {
+    "AA": "ɑ~ɒ",
+    "AE": "æ",
+    "AH": "ʌ",
+    "AO": "ɔ",
+    "AW": "aʊ",
+    "AX": "ə",
+    "AXR": "ɚ",
+    "AY": "aɪ",
+    "EH": "ɛ",
+    "ER": "ɝ",
+    "EY": "eɪ",
+    "IH": "ɪ",
+    "IX": "ɨ",
+    "IY": "i",
+    "OW": "oʊ",
+    "OY": "ɔɪ",
+    "UH": "ʊ",
+    "UW": "u",
+    "UX": "ʉ",
+    "B": "b",
+    "CH": "tʃ",
+    "D": "d",
+    "DH": "ð",
+    "DX": "ɾ",
+    "EL": "l̩",
+    "EM": "m̩",
+    "EN": "n̩",
+    "F": "f",
+    "G": "ɡ",
+    "H": "h",
+    "HH": "h",
+    "JH": "dʒ",
+    "K": "k",
+    "L": "l",
+    "M": "m",
+    "N": "n",
+    "NX": "ŋ",
+    "NG": "ŋ",
+    "P": "p",
+    "Q": "ʔ",
+    "R": "ɹ",
+    "S": "s",
+    "SH": "ʃ",
+    "T": "t",
+    "TH": "θ",
+    "V": "v",
+    "W": "w",
+    "WH": "ʍ",
+    "Y": "j",
+    "Z": "z",
+    "ZH": "ʒ"
+  }
+}

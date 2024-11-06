@@ -2,15 +2,28 @@
   "name": "mixed-messages",
   "description": "My personal boilerplate for starting web apps",
   "scripts": {
-    "build_meyda": "./node_modules/.bin/esbuild node_modules/meyda/dist/esm/main.js --bundle --outfile=public/js/vendor/meyda.js --format=esm",
+    "align": "node align.js",
+    "align-debug": "node align.js --debug",
+    "align-overwrite": "node align.js --overwrite",
+    "build-meyda": "./node_modules/.bin/esbuild node_modules/meyda/dist/esm/main.js --bundle --outfile=public/js/vendor/meyda.js --format=esm",
+    "ingest": "node ingest.js",
+    "ingest-clean": "node ingest.js --clean",
+    "ingest-validate": "node ingest.js --validate",
     "lint": "./node_modules/.bin/eslint",
-    "start": "node server.js"
+    "start": "node server.js",
+    "validate": "mfa validate audio english_us_arpa english_us_arpa",
+    "validate-alignments": "node validate.js"
   },
   "dependencies": {
     "compromise": "^14.14.2",
     "compromise-speech": "^0.1.0",
+    "csv-parser": "^3.0.0",
     "express": "^4.21.0",
-    "meyda": "^5.6.3"
+    "meyda": "^5.6.3",
+    "node-wav": "^0.0.2",
+    "textgrid": "^2.2.0",
+    "underscore": "^1.13.7",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "esbuild": "^0.24.0",
