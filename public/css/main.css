@@ -108,15 +108,16 @@ p {
   padding: 3px 6px;
 }
 
-.text {
+.text-wrapper {
   display: flex;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
 }
-.text-pulses {
-  white-space: nowrap;
-  font-size: 5vw;
+.text {
+  height: 100px;
+  width: 95%;
+  position: relative;
 }
 
 .tool-list button {
@@ -138,12 +139,6 @@ p {
   gap: 6px;
   justify-content: center;
   align-items: center;
-}
-.source-description span {
-  display: none;
-}
-.source-description span.active {
-  display: block;
 }
 
 .visually-hidden {

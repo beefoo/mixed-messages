@@ -1,3 +1,5 @@
+import AudioSelector from './AudioSelector.js';
+
 export default class App {
   constructor(options = {}) {
     const defaults = {
@@ -11,5 +13,6 @@ export default class App {
   init() {
     const { options } = this;
     this.el = document.getElementById(options.el);
+    this.selector = new AudioSelector();
   }
 }

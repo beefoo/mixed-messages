@@ -32,8 +32,8 @@
             <h1><a href="/about.html" target="_blank">Mixed messages</a></h1>
             <button>Settings</button>
           </nav>
-          <div class="text">
-            <div class="text-pulses">Say children, what does it all mean?</div>
+          <div class="text-wrapper">
+            <div id="text-ui" class="text"></div>
           </div>
         </div>
         <div class="ui-left">
@@ -94,26 +94,8 @@
         </button>
         <form class="source-form">
           <label for="source-select">Currently playing:</label>
-          <select id="source-select" class="source-select">
-            <option value="laguardia" selected>
-              "Say children, what does it all mean?"
-            </option>
-            <option value="microphone">Record your own audio</option>
-            <option value="file">Select your own audio file</option>
-          </select>
-          <div class="source-description">
-            <span class="source-description-item active"
-              >by Fiorello La Guardia via
-              <a href="#" target="_blank">WNYC</a></span
-            >
-            <span class="source-description-microphone"
-              ><button>Re-record audio</button></span
-            >
-            <span class="source-description-file"
-              ><label for="source-description-file">Select a new file</label
-              ><input id="source-select-file" type="file" accept="audio/*"
-            /></span>
-          </div>
+          <select id="source-select" class="source-select"></select>
+          <div id="item-detail" class="source-description"></div>
         </form>
       </div>
     </div>
