@@ -150,6 +150,11 @@ function parseItems(items) {
       }
       refText = refText.slice(w.text.length);
     });
+    // Add ending punctuation if it exists
+    refText = refText.trim();
+    if (refText.length > 0 && words.length > 0) {
+      words[words.length - 1].append = refText;
+    }
     // words.forEach((w) => {
     //   const text = w.displayText ? w.displayText : w.text;
     //   console.log(text);
