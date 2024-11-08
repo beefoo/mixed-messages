@@ -9,7 +9,6 @@ export default class AudioLoader {
 
   init() {
     this.ctx = new AudioContext();
-    this.buffer = false;
   }
 
   async loadFromURL(url) {
@@ -22,6 +21,9 @@ export default class AudioLoader {
 
       const audioData = await response.arrayBuffer();
       const buffer = await this.ctx.decodeAudioData(audioData);
+      const mono = buffer.getChannelData(0);
+      const length = mono.length / buffer.sampleRate;
+      console.log(`Loaded ${url} with duration: ${length}s.`);
       return buffer;
     } catch (error) {
       console.error(error.message);

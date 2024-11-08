@@ -14,6 +14,7 @@ export default class AudioSelector {
     const defaults = {
       debug: false,
       itemEl: 'item-detail',
+      onSelect: (item) => console.log(item),
       selectEl: 'source-select',
       src: 'audio/manifest.json',
     };
@@ -46,5 +47,6 @@ export default class AudioSelector {
     const item = this.items[index];
     const html = `by ${item.speakers} via <a href="${item.url}" target="_blank">${item.source}</a>`;
     this.$item.innerHTML = html;
+    this.options.onSelect(item);
   }
 }
