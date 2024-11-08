@@ -8,6 +8,7 @@ export default class AudioLoader {
   }
 
   init() {
+    this.buffer = false;
     this.ctx = new AudioContext();
   }
 
@@ -23,9 +24,12 @@ export default class AudioLoader {
       const buffer = await this.ctx.decodeAudioData(audioData);
       const mono = buffer.getChannelData(0);
       const length = mono.length / buffer.sampleRate;
+      this.buffer = buffer;
+      this.duration = length;
       console.log(`Loaded ${url} with duration: ${length}s.`);
-      return buffer;
+      return true;
     } catch (error) {
+      this.buffer = false;
       console.error(error.message);
       return false;
     }

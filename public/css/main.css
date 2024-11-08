@@ -119,6 +119,20 @@ p {
   width: 95%;
   position: relative;
 }
+.text .char {
+  position: absolute;
+  height: 100%;
+}
+.text .char svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.text .char path {
+  fill: var(--base-lightest);
+}
 
 .tool-list button {
   width: 9.75vh;

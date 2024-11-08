@@ -1,5 +1,6 @@
 import AudioLoader from './AudioLoader.js';
 import AudioSelector from './AudioSelector.js';
+import TextInterface from './TextInterface.js';
 
 export default class App {
   constructor(options = {}) {
@@ -19,11 +20,18 @@ export default class App {
       onSelect: (item) => this.onSelectAudio(item),
     });
     this.loader = new AudioLoader();
+    this.ui = new TextInterface();
   }
 
-  onSelectAudio(item) {
+  async onSelectAudio(item) {
     const { audioPath } = this.options;
     const audioURL = `${audioPath}${item.id}.mp3`;
-    this.loader.loadFromURL(audioURL);
+    const dataURL = `${audioPath}${item.id}.json`;
+    const [audioResp, dataResp] = await Promise.all([
+      this.loader.loadFromURL(audioURL),
+      this.ui.loadFromURL(dataURL),
+    ]);
+    if (!audioResp || !dataResp) return;
+    console.log('Audio and data loaded');
   }
 }
