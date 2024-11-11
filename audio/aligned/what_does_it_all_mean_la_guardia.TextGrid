@@ -1,0 +1,110 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.050907 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.050907 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.134 
+            text = "what" 
+        intervals [2]:
+            xmin = 0.134 
+            xmax = 0.266 
+            text = "does" 
+        intervals [3]:
+            xmin = 0.266 
+            xmax = 0.368 
+            text = "it" 
+        intervals [4]:
+            xmin = 0.368 
+            xmax = 0.546 
+            text = "all" 
+        intervals [5]:
+            xmin = 0.546 
+            xmax = 0.906 
+            text = "mean" 
+        intervals [6]:
+            xmin = 0.906 
+            xmax = 1.050907 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.050907 
+        intervals: size = 14 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.026 
+            text = "W" 
+        intervals [2]:
+            xmin = 0.026 
+            xmax = 0.104 
+            text = "AH1" 
+        intervals [3]:
+            xmin = 0.104 
+            xmax = 0.134 
+            text = "T" 
+        intervals [4]:
+            xmin = 0.134 
+            xmax = 0.138 
+            text = "D" 
+        intervals [5]:
+            xmin = 0.138 
+            xmax = 0.221 
+            text = "IH0" 
+        intervals [6]:
+            xmin = 0.221 
+            xmax = 0.266 
+            text = "Z" 
+        intervals [7]:
+            xmin = 0.266 
+            xmax = 0.344 
+            text = "IH0" 
+        intervals [8]:
+            xmin = 0.344 
+            xmax = 0.368 
+            text = "T" 
+        intervals [9]:
+            xmin = 0.368 
+            xmax = 0.534 
+            text = "AA1" 
+        intervals [10]:
+            xmin = 0.534 
+            xmax = 0.546 
+            text = "L" 
+        intervals [11]:
+            xmin = 0.546 
+            xmax = 0.656 
+            text = "M" 
+        intervals [12]:
+            xmin = 0.656 
+            xmax = 0.794 
+            text = "IY1" 
+        intervals [13]:
+            xmin = 0.794 
+            xmax = 0.906 
+            text = "N" 
+        intervals [14]:
+            xmin = 0.906 
+            xmax = 1.050907 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 1.050907 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 1.050907 
+            text = "What does it all mean?" 
