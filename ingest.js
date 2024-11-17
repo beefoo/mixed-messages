@@ -2,6 +2,8 @@ const _ = require('underscore');
 const csv = require('csv-parser');
 const fs = require('fs');
 const meyda = require('meyda');
+const nlp = require('compromise/one');
+const plg = require('compromise-speech');
 const { spawnSync } = require('child_process');
 const textgrid = require('textgrid');
 const wav = require('node-wav');
@@ -297,15 +299,76 @@ function alignPhones(items) {
   });
 }
 
+function alignSyllables(items) {
+  nlp.extend(plg);
+
+  // const parsed = nlp('Testing a string of text');
+  // const syllables = parsed.syllables();
+  // console.log(syllables);
+
+  return items.map((item) => {
+    console.log(`=== Aligning syllables for ${item.id} ===`);
+    const alignedItem = _.clone(item);
+
+    alignedItem.words = item.words.map((word) => {
+      const { text, phones } = word;
+      const alignedWord = _.clone(word);
+      const parsedText = nlp(text);
+      const wordSyllables = parsedText.syllables();
+      if (wordSyllables.length <= 0 || wordSyllables[0].length <= 0) {
+        console.log(`No syllables found for ${text}`);
+        alignedWord.syllables = [];
+        return alignedWord;
+      }
+      const syllables = wordSyllables[0].map((syllable) => {
+        return { text: syllable };
+      });
+      const phoneQueue = phones.slice();
+      syllables.forEach((syllable, j) => {
+        let refText = syllable.text.toLowerCase();
+        const matchedPhones = [];
+        while (true) {
+          if (phoneQueue.length < 1 || refText.length < 1) break;
+          const phone = phoneQueue.shift();
+          const matchText = phone.displayText.toLowerCase();
+          if (refText.startsWith(matchText)) {
+            refText = refText.substring(matchText.length);
+            matchedPhones.push(phone);
+          } else {
+            console.log(`Could not find ${matchText} in ${refText} in ${text}`);
+            break;
+          }
+        }
+        syllables[j].phones = matchedPhones;
+        if (matchedPhones.length < 1) return;
+        syllables[j].displayText = matchedPhones.reduce(
+          (prev, curr) => prev.concat(curr.displayText),
+          '',
+        );
+        syllables[j].start = matchedPhones[0].start;
+        syllables[j].end = matchedPhones[matchedPhones.length - 1].end;
+      });
+      alignedWord.syllables = syllables;
+      delete alignedWord.phones;
+      return alignedWord;
+    });
+
+    return alignedItem;
+  });
+}
+
 function mapPhones(items, mappings) {
   const mappedItems = items.slice(0);
   items.forEach((item, i) => {
     item.words.forEach((word, j) => {
-      word.phones.forEach((phone, k) => {
-        const phoneText = phone.text.replace(/[^a-z]/gi, '');
-        if (_.has(mappings, phoneText)) {
-          mappedItems[i].words[j].phones[k].text = mappings[phoneText];
-        }
+      word.syllables.forEach((syllable, k) => {
+        syllable.phones.forEach((phone, l) => {
+          const phoneText = phone.text.replace(/[^a-z]/gi, '');
+          if (_.has(mappings, phoneText)) {
+            mappedItems[i].words[j].syllables[k].phones[l].text =
+              mappings[phoneText];
+          }
+        });
       });
     });
   });
@@ -326,20 +389,22 @@ function analyzeAudio(items) {
     meyda.sampleRate = sampleRate;
     const featureData = [];
     item.words.forEach((word, j) => {
-      word.phones.forEach((phone, k) => {
-        const { start, end } = phone;
-        // eslint-disable-next-line max-len
-        const features = classifier.extractFeatures(
-          meyda,
-          monoChannelData,
-          sampleRate,
-          start,
-          end,
-          _.without(featureList, 'duration'),
-        );
-        features.duration = end - start;
-        analyzedItem.words[j].phones[k].features = features;
-        featureData.push(features);
+      word.syllables.forEach((syllable, k) => {
+        syllable.phones.forEach((phone, l) => {
+          const { start, end } = phone;
+          // eslint-disable-next-line max-len
+          const features = classifier.extractFeatures(
+            meyda,
+            monoChannelData,
+            sampleRate,
+            start,
+            end,
+            _.without(featureList, 'duration'),
+          );
+          features.duration = end - start;
+          analyzedItem.words[j].syllables[k].phones[l].features = features;
+          featureData.push(features);
+        });
       });
     });
     // get min/max of features
@@ -353,13 +418,16 @@ function analyzeAudio(items) {
     });
     // normalize values
     analyzedItem.words.forEach((word, j) => {
-      word.phones.forEach((phone, k) => {
-        featureList.forEach((feature) => {
-          const { min, max } = featureRanges[feature];
-          let nvalue = utils.norm(phone.features[feature], min, max);
-          nvalue **= 0.5;
-          nvalue = utils.roundToPrecision(nvalue, config.dataPrecision);
-          analyzedItem.words[j].phones[k].features[feature] = nvalue;
+      word.syllables.forEach((syllable, k) => {
+        syllable.phones.forEach((phone, l) => {
+          featureList.forEach((feature) => {
+            const { min, max } = featureRanges[feature];
+            let nvalue = utils.norm(phone.features[feature], min, max);
+            nvalue **= 0.5;
+            nvalue = utils.roundToPrecision(nvalue, config.dataPrecision);
+            analyzedItem.words[j].syllables[k].phones[l].features[feature] =
+              nvalue;
+          });
         });
       });
     });
@@ -376,12 +444,16 @@ function writeDataFiles(items) {
     utils.writeJSON(fs, filenameWithFeatures, itemOut);
     itemOut.words = itemOut.words.map((word) => {
       const updatedWord = _.clone(word);
-      updatedWord.phones = word.phones.map((phone) =>
-        _.omit(phone, 'features'),
-      );
+      updatedWord.syllables = word.syllables.map((syllable) => {
+        const updatedSyllable = _.clone(syllable);
+        updatedSyllable.phones = syllable.phones.map((phone) =>
+          _.omit(phone, 'features'),
+        );
+        return updatedSyllable;
+      });
       return updatedWord;
     });
-    utils.writeJSON(fs, filename, itemOut);
+    utils.writeJSON(fs, filename, _.omit(itemOut, 'features'));
   });
 }
 
@@ -419,6 +491,7 @@ utils.readCSV(fs, csv, config.metadataFile, (rows) => {
   console.log('Parsing textgrid data...');
   items = parseItems(items);
   items = alignPhones(items);
+  items = alignSyllables(items);
   items = mapPhones(items, config.arpabet);
   console.log('Analyzing audio...');
   items = analyzeAudio(items);
