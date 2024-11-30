@@ -1,6 +1,7 @@
 import AudioLoader from './AudioLoader.js';
 import AudioPlayer from './AudioPlayer.js';
 import AudioSelector from './AudioSelector.js';
+import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
 import TextInterface from './TextInterface.js';
 
@@ -33,8 +34,34 @@ export default class App {
     this.sequencer = new Sequencer({
       audioContext: this.ctx,
     });
+    this.pointers = new PointerManager({
+      childSelector: '.char',
+      onDrag: (pointer) => {
+        this.onPointerDrag(pointer);
+      },
+      onDragEnd: (pointer) => {
+        this.onPointerDragEnd(pointer);
+      },
+      onStart: (pointer) => {
+        this.onPointerStart(pointer);
+      },
+      onTap: (pointer) => {
+        this.onPointerTap(pointer);
+      },
+      target: 'text-wrapper',
+    });
     this.update();
   }
+
+  onPointerDrag(pointer) {}
+
+  onPointerDragEnd(pointer) {}
+
+  onPointerStart(pointer) {
+    this.ui.selectSyllableByCharId(pointer.$target.id);
+  }
+
+  onPointerTap(pointer) {}
 
   async onSelectAudio(item) {
     const { audioPath } = this.options;

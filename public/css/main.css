@@ -151,6 +151,9 @@ p {
 .text .char path {
   fill: var(--base-lightest);
 }
+.text .char.selected path {
+  fill: var(--secondary-light);
+}
 .text .char .char-ghost {
   opacity: 0;
   pointer-events: none;

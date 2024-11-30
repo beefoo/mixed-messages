@@ -19,19 +19,23 @@ export default class TextInterface {
   async loadFromURL(url) {
     const response = await fetch(url);
     const data = await response.json();
+    const charLookup = {};
     this.render(data);
     // keep track of HTML element list
     data.words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
         const { displayText } = syll;
         const chars = displayText.split('');
-        const $els = chars.map((char, k) =>
-          document.getElementById(`char-${i}-${j}-${k}`),
-        );
+        const $els = chars.map((char, k) => {
+          const id = `char-${i}-${j}-${k}`;
+          charLookup[id] = [i, j, k];
+          return document.getElementById(`char-${i}-${j}-${k}`);
+        });
         data.words[i].syllables[j].$els = $els;
       });
     });
     this.data = data;
+    this.charLookup = charLookup;
     return true;
   }
 
@@ -63,5 +67,19 @@ export default class TextInterface {
       });
     });
     this.$el.innerHTML = html;
+  }
+
+  selectSyllableByCharId(charId) {
+    if (charId in this.charLookup);
+    const [wordIndex, syllableIndex, _charIndex] = this.charLookup[charId];
+    this.data.words.forEach((word, i) => {
+      word.syllables.forEach((syllable, j) => {
+        syllable.$els.forEach(($el) => {
+          if (i === wordIndex && j === syllableIndex)
+            $el.classList.add('selected');
+          else $el.classList.remove('selected');
+        });
+      });
+    });
   }
 }
