@@ -4,6 +4,7 @@ import AudioSelector from './AudioSelector.js';
 import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
 import TextInterface from './TextInterface.js';
+import ToolSelector from './ToolSelector.js';
 
 export default class App {
   constructor(options = {}) {
@@ -34,6 +35,7 @@ export default class App {
     this.sequencer = new Sequencer({
       audioContext: this.ctx,
     });
+    this.tools = new ToolSelector();
     this.pointers = new PointerManager({
       childSelector: '.char',
       onDrag: (pointer) => {
@@ -58,7 +60,7 @@ export default class App {
   onPointerDragEnd(pointer) {}
 
   onPointerStart(pointer) {
-    this.ui.selectSyllableByCharId(pointer.$target.id);
+    if (pointer.$target) this.ui.selectSyllableByCharId(pointer.$target.id);
   }
 
   onPointerTap(pointer) {}

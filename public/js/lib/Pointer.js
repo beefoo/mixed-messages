@@ -16,6 +16,7 @@ export default class Pointer {
     const { id, event } = this.options;
 
     this.id = id;
+    this.isValid = false;
     this.started = false;
     this.onStart(event);
   }
@@ -50,6 +51,7 @@ export default class Pointer {
     if (childSelector) {
       this.$target = this.constructor.getChildFromEvent(event, childSelector);
     }
+    if (this.$target) this.isValid = true;
   }
 
   onEnd(_event) {

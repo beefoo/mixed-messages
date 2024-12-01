@@ -36,7 +36,7 @@ export default class PointerManager {
         event,
       };
       pointer = new Pointer(options);
-      this.pointers[pointerId] = pointer;
+      if (pointer.isValid) this.pointers[pointerId] = pointer;
     }
 
     return pointer;
