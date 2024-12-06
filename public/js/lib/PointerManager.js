@@ -37,6 +37,7 @@ export default class PointerManager {
       };
       pointer = new Pointer(options);
       if (pointer.isValid) this.pointers[pointerId] = pointer;
+      else pointer = false;
     }
 
     return pointer;
@@ -61,13 +62,15 @@ export default class PointerManager {
 
   onPointerDown(event) {
     const pointer = this.getPointer(event, true);
-    if (pointer.isPrimary) this.$target.setPointerCapture(event.pointerId);
+    if (!pointer) return;
+    this.$target.setPointerCapture(event.pointerId);
     this.options.onStart(pointer);
   }
 
   onPointerMove(event) {
     const pointer = this.getPointer(event, false, true);
     if (!pointer) return;
+    pointer.onMove(event);
     this.options.onDrag(pointer);
   }
 
@@ -81,6 +84,7 @@ export default class PointerManager {
     } else if (gesture === 'drag') {
       this.options.onDragEnd(pointer);
     }
+    this.$target.releasePointerCapture(event.pointerId);
     this.removePointer(pointer);
   }
 

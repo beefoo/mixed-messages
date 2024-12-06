@@ -26,6 +26,13 @@ export default class Pointer {
     return $target.closest(selector);
   }
 
+  static getPositionFromEvent(event) {
+    return {
+      x: event.clientX,
+      y: event.clientY,
+    };
+  }
+
   getGesture() {
     return this.gesture || 'tap';
   }
@@ -33,12 +40,18 @@ export default class Pointer {
   onMove(event) {
     // assume any movement is a drag
     if (this.gesture !== 'drag') this.gesture = 'drag';
+    this.pos = this.constructor.getPositionFromEvent(event);
+    this.delta = {
+      x: this.pos.x - this.posStart.x,
+      y: this.pos.y - this.posStart.y,
+    };
   }
 
   onStart(event) {
     this.isPrimary = false;
     this.gesture = false;
     this.started = Date.now();
+    this.posStart = this.constructor.getPositionFromEvent(event);
 
     // check to see if it is primary pointer
     if (event && event.originalEvent) {

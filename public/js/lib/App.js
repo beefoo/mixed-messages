@@ -4,6 +4,7 @@ import AudioSelector from './AudioSelector.js';
 import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
 import TextInterface from './TextInterface.js';
+import ToolController from './ToolController.js';
 import ToolSelector from './ToolSelector.js';
 
 export default class App {
@@ -52,18 +53,37 @@ export default class App {
       },
       target: 'text-wrapper',
     });
+    this.controller = new ToolController({
+      sequencer: this.sequencer,
+      ui: this.ui,
+    });
     this.update();
   }
 
-  onPointerDrag(pointer) {}
+  onPointerDrag(pointer) {
+    const { selectedTool } = this.tools;
 
-  onPointerDragEnd(pointer) {}
+    if (selectedTool in this.controller) this.controller[selectedTool](pointer);
+  }
+
+  onPointerDragEnd(pointer) {
+    const { selectedTool } = this.tools;
+    const property = `${selectedTool}End`;
+    if (property in this.controller) this.controller[property](pointer);
+  }
 
   onPointerStart(pointer) {
     if (pointer.$target) this.ui.selectSyllableByCharId(pointer.$target.id);
+    const { selectedTool } = this.tools;
+    const property = `${selectedTool}Start`;
+    if (property in this.controller) this.controller[property](pointer);
   }
 
-  onPointerTap(pointer) {}
+  onPointerTap(pointer) {
+    const { selectedTool } = this.tools;
+    const property = `${selectedTool}Once`;
+    if (property in this.controller) this.controller[property](pointer);
+  }
 
   async onSelectAudio(item) {
     const { audioPath } = this.options;
@@ -94,7 +114,7 @@ export default class App {
     const sequence = [];
     words.forEach((word) => {
       word.syllables.forEach((syll) => {
-        const { start, end, $els } = syll;
+        const { start, end, els } = syll;
         const playerItem = {
           start,
           latency,
@@ -106,7 +126,8 @@ export default class App {
           start,
           latency: 0,
           task: (_when) => {
-            $els.forEach(($el) => {
+            els.forEach((el) => {
+              const { $el } = el;
               $el.classList.remove('playing');
               setTimeout(() => $el.classList.add('playing'), 1);
             });

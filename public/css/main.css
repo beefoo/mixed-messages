@@ -147,6 +147,7 @@ p {
   position: absolute;
   height: 100%;
 }
+.text .char .transformer,
 .text .char .char-image,
 .text .char .char-ghost,
 .text .char svg {

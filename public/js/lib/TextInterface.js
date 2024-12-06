@@ -12,8 +12,15 @@ export default class TextInterface {
 
   init() {
     this.data = false;
+    this.charLookup = {};
     this.alpha = new Alphabet();
     this.$el = document.getElementById(this.options.el);
+  }
+
+  getSyllableByCharId(charId) {
+    if (!(charId in this.charLookup)) return false;
+    const [wordIndex, syllableIndex, _charIndex] = this.charLookup[charId];
+    return this.data.words[wordIndex].syllables[syllableIndex];
   }
 
   async loadFromURL(url) {
@@ -31,7 +38,13 @@ export default class TextInterface {
           charLookup[id] = [i, j, k];
           return document.getElementById(`char-${i}-${j}-${k}`);
         });
-        data.words[i].syllables[j].$els = $els;
+        data.words[i].syllables[j].els = $els.map(($el) => {
+          return {
+            $el,
+            left: parseFloat($el.getAttribute('data-left')),
+            width: parseFloat($el.getAttribute('data-width')),
+          };
+        });
       });
     });
     this.data = data;
@@ -59,9 +72,11 @@ export default class TextInterface {
           const id = `char-${i}-${j}-${k}`;
           const classList = `word-${i} syll-${i}-${j}`;
           const charStart = wordStart + k * charWidth;
-          html += `<div id="${id}" class="char ${classList}" style="left: ${charStart}%; width: ${charWidth}%">`;
-          html += `  <div class="char-ghost">${letterData.html}</div>`;
-          html += `  <div class="char-image">${letterData.html}</div>`;
+          html += `<div id="${id}" class="char ${classList}" style="left: ${charStart}%; width: ${charWidth}%" data-left="${charStart}" data-width="${charWidth}">`;
+          html += '  <div class="transformer">';
+          html += `    <div class="char-ghost">${letterData.html}</div>`;
+          html += `    <div class="char-image">${letterData.html}</div>`;
+          html += '  </div>';
           html += '</div>';
         });
       });
@@ -70,11 +85,12 @@ export default class TextInterface {
   }
 
   selectSyllableByCharId(charId) {
-    if (charId in this.charLookup);
+    if (!(charId in this.charLookup)) return;
     const [wordIndex, syllableIndex, _charIndex] = this.charLookup[charId];
     this.data.words.forEach((word, i) => {
       word.syllables.forEach((syllable, j) => {
-        syllable.$els.forEach(($el) => {
+        syllable.els.forEach((el) => {
+          const { $el } = el;
           if (i === wordIndex && j === syllableIndex)
             $el.classList.add('selected');
           else $el.classList.remove('selected');
