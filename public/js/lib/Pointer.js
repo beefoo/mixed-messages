@@ -18,6 +18,9 @@ export default class Pointer {
     this.id = id;
     this.isValid = false;
     this.started = false;
+    this.posStart = false;
+    this.posLast = false;
+    this.data = {};
     this.onStart(event);
   }
 
@@ -40,11 +43,14 @@ export default class Pointer {
   onMove(event) {
     // assume any movement is a drag
     if (this.gesture !== 'drag') this.gesture = 'drag';
-    this.pos = this.constructor.getPositionFromEvent(event);
+    const { posLast } = this;
+    if (!posLast) return;
+    const pos = this.constructor.getPositionFromEvent(event);
     this.delta = {
-      x: this.pos.x - this.posStart.x,
-      y: this.pos.y - this.posStart.y,
+      x: pos.x - posLast.x,
+      y: pos.y - posLast.y,
     };
+    this.posLast = pos;
   }
 
   onStart(event) {
@@ -52,6 +58,7 @@ export default class Pointer {
     this.gesture = false;
     this.started = Date.now();
     this.posStart = this.constructor.getPositionFromEvent(event);
+    this.posLast = structuredClone(this.posStart);
 
     // check to see if it is primary pointer
     if (event && event.originalEvent) {
@@ -75,5 +82,13 @@ export default class Pointer {
     // if passed the tap threshold, consider it a drag
     const elapsed = time - this.started;
     if (elapsed >= this.options.tapThreshold) this.gesture = 'drag';
+  }
+
+  setData(key, data) {
+    if (key in this.data) {
+      this.data[key] = Object.assign(this.data[key], data);
+      return;
+    }
+    this.data[key] = data;
   }
 }

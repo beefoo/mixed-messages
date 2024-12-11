@@ -67,6 +67,10 @@ export default class MathUtil {
     return Math.round(value / nearest) * nearest;
   }
 
+  static sum(arr, key) {
+    return arr.reduce((accumulator, item) => accumulator + item[key], 0);
+  }
+
   static within(num, min, max) {
     return num >= min && num <= max;
   }

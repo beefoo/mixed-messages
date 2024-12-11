@@ -1,4 +1,5 @@
 import Alphabet from './Alphabet.js';
+import MathUtil from './MathUtil.js';
 
 export default class TextInterface {
   constructor(options = {}) {
@@ -15,6 +16,7 @@ export default class TextInterface {
     this.charLookup = {};
     this.alpha = new Alphabet();
     this.$el = document.getElementById(this.options.el);
+    this.refreshBBox();
   }
 
   getSyllableByCharId(charId) {
@@ -38,18 +40,41 @@ export default class TextInterface {
           charLookup[id] = [i, j, k];
           return document.getElementById(`char-${i}-${j}-${k}`);
         });
+        data.words[i].syllables[j].wordIndex = i;
+        data.words[i].syllables[j].index = j;
         data.words[i].syllables[j].els = $els.map(($el) => {
           return {
             $el,
             left: parseFloat($el.getAttribute('data-left')),
             width: parseFloat($el.getAttribute('data-width')),
+            top: 0,
           };
+        });
+      });
+    });
+    // Add relative positions
+    data.words.forEach((word, i) => {
+      word.syllables.forEach((syll, j) => {
+        if (syll.els.length < 1) return;
+        const [first] = syll.els;
+        const width = MathUtil.sum(syll.els, 'width');
+        data.words[i].syllables[j].width = width;
+        syll.els.forEach((el, k) => {
+          let relativeLeft = 0;
+          if (k > 0) {
+            relativeLeft = el.left - first.left;
+          }
+          data.words[i].syllables[j].els[k].relativeLeft = relativeLeft;
         });
       });
     });
     this.data = data;
     this.charLookup = charLookup;
     return true;
+  }
+
+  refreshBBox() {
+    this.bbox = this.$el.getBoundingClientRect().toJSON();
   }
 
   render(data) {
@@ -72,7 +97,7 @@ export default class TextInterface {
           const id = `char-${i}-${j}-${k}`;
           const classList = `word-${i} syll-${i}-${j}`;
           const charStart = wordStart + k * charWidth;
-          html += `<div id="${id}" class="char ${classList}" style="left: ${charStart}%; width: ${charWidth}%" data-left="${charStart}" data-width="${charWidth}">`;
+          html += `<div id="${id}" class="char ${classList}" style="left: ${charStart}%; width: ${charWidth}%" data-left="${charStart}" data-width="${charWidth}" data-top="0">`;
           html += '  <div class="transformer">';
           html += `    <div class="char-ghost">${letterData.html}</div>`;
           html += `    <div class="char-image">${letterData.html}</div>`;
