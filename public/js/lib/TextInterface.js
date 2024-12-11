@@ -33,15 +33,17 @@ export default class TextInterface {
     // keep track of HTML element list
     data.words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
-        const { displayText } = syll;
+        const { start, end, displayText } = syll;
         const chars = displayText.split('');
         const $els = chars.map((char, k) => {
           const id = `char-${i}-${j}-${k}`;
           charLookup[id] = [i, j, k];
           return document.getElementById(`char-${i}-${j}-${k}`);
         });
+        data.words[i].syllables[j].duration = end - start;
         data.words[i].syllables[j].wordIndex = i;
         data.words[i].syllables[j].index = j;
+        data.words[i].syllables[j].id = `syll-${i}-${j}`;
         data.words[i].syllables[j].els = $els.map(($el) => {
           return {
             $el,

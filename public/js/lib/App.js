@@ -54,6 +54,7 @@ export default class App {
       target: 'text-wrapper',
     });
     this.controller = new ToolController({
+      player: this.player,
       sequencer: this.sequencer,
       ui: this.ui,
     });
@@ -102,7 +103,7 @@ export default class App {
 
   update() {
     window.requestAnimationFrame(() => this.update());
-    this.sequencer.update();
+    this.sequencer.step();
   }
 
   updateSequence() {
@@ -114,8 +115,10 @@ export default class App {
     const sequence = [];
     words.forEach((word) => {
       word.syllables.forEach((syll) => {
-        const { start, end, els } = syll;
+        const { id, start, end, els } = syll;
         const playerItem = {
+          id: `player-${id}`,
+          group: id,
           start,
           latency,
           task: (when) => {
@@ -123,6 +126,8 @@ export default class App {
           },
         };
         const uiItem = {
+          id: `ui-${id}`,
+          group: id,
           start,
           latency: 0,
           task: (_when) => {
@@ -136,6 +141,7 @@ export default class App {
         sequence.push(playerItem, uiItem);
       });
     });
+    // console.log(sequence);
     this.sequencer.setSequence(sequence);
   }
 }

@@ -57,15 +57,7 @@ export default class Sequencer {
     this.resetSequence();
   }
 
-  togglePlay() {
-    if (!this.isReady()) return;
-    this.$playButton.classList.toggle('playing');
-    const isPlaying = this.$playButton.classList.contains('playing');
-    if (isPlaying) this.play();
-    else this.pause();
-  }
-
-  update() {
+  step() {
     if (!this.isPlaying || !this.isReady()) return;
     const { duration } = this;
     const now = this.ctx.currentTime - this.startedAt;
@@ -81,5 +73,13 @@ export default class Sequencer {
         this.sequence[i].lastIterationPlayed = iteration;
       }
     });
+  }
+
+  togglePlay() {
+    if (!this.isReady()) return;
+    this.$playButton.classList.toggle('playing');
+    const isPlaying = this.$playButton.classList.contains('playing');
+    if (isPlaying) this.play();
+    else this.pause();
   }
 }
