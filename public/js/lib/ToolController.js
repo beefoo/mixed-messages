@@ -15,11 +15,16 @@ export default class ToolController {
     this.player = this.options.player;
   }
 
+  getSyllableFromPointer(pointer) {
+    const charId = pointer.$target.id;
+    if (!charId) return false;
+    const syllable = this.ui.getSyllableByCharId(charId);
+    if (!syllable) return false;
+    return syllable;
+  }
+
   move(pointer) {
     // retrieve the syllable from the pointer
-    const { ui } = this;
-    const charId = pointer.$target.id;
-    if (!charId) return;
     const syllable = ui.getSyllableByCharId(charId);
     if (!syllable) return;
     const { els, wordIndex, index } = syllable;
@@ -28,6 +33,7 @@ export default class ToolController {
     // get delta movement in percentage of bounding box
     const { bbox } = ui;
     const { delta } = pointer;
+    if (!delta) return;
     const nx = (delta.x / bbox.width) * 100;
     const ny = (delta.y / bbox.height) * 100;
 
@@ -45,14 +51,14 @@ export default class ToolController {
       const newTop = MathUtil.clamp(top + ny, minY, maxY);
       $el.style.left = `${newLeft}%`;
       $el.style.top = `${newTop}%`;
-      ui.data.words[i].syllables[j].els[k].left = newLeft;
-      ui.data.words[i].syllables[j].els[k].top = newTop;
+      this.ui.data.words[i].syllables[j].els[k].left = newLeft;
+      this.ui.data.words[i].syllables[j].els[k].top = newTop;
     });
 
     // now update the syllable start time in the sequencer
     const { sequencer } = this;
     const { sequence } = sequencer;
-    const syllLeft = ui.data.words[i].syllables[j].els[0].left;
+    const syllLeft = this.ui.data.words[i].syllables[j].els[0].left;
     const nStart = syllLeft / 100.0;
     const newStart = sequencer.duration * nStart;
     const newEnd = newStart + syllable.duration;
@@ -67,7 +73,18 @@ export default class ToolController {
     });
   }
 
-  moveStart(_pointer) {
-    this.ui.refreshBBox(); // refresh bounding box
+  pitch(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = ui.getSyllableByCharId(charId);
+    if (!syllable) return;
+    const { els, wordIndex, index } = syllable;
+    if (els.length < 1) return;
+
+    // get delta movement in percentage of bounding box
+    const { bbox } = ui;
+    const { deltaFromStart } = pointer;
+    if (!deltaFromStart) return;
+    const dx = deltaFromStart.x / bbox.width;
+    const dy = deltaFromStart.y / bbox.height;
   }
 }

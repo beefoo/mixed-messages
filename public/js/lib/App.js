@@ -75,6 +75,7 @@ export default class App {
 
   onPointerStart(pointer) {
     if (pointer.$target) this.ui.selectSyllableByCharId(pointer.$target.id);
+    this.ui.refreshBBox();
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Start`;
     if (property in this.controller) this.controller[property](pointer);

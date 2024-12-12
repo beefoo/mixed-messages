@@ -20,6 +20,8 @@ export default class Pointer {
     this.started = false;
     this.posStart = false;
     this.posLast = false;
+    this.delta = false;
+    this.deltaFromStart = false;
     this.data = {};
     this.onStart(event);
   }
@@ -43,12 +45,16 @@ export default class Pointer {
   onMove(event) {
     // assume any movement is a drag
     if (this.gesture !== 'drag') this.gesture = 'drag';
-    const { posLast } = this;
-    if (!posLast) return;
+    const { posLast, posStart } = this;
+    if (!posLast || !posStart) return;
     const pos = this.constructor.getPositionFromEvent(event);
     this.delta = {
       x: pos.x - posLast.x,
       y: pos.y - posLast.y,
+    };
+    this.deltaFromStart = {
+      x: pos.x - posStart.x,
+      y: pos.y - posStart.y,
     };
     this.posLast = pos;
   }
