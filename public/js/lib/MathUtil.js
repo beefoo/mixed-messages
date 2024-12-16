@@ -3,7 +3,7 @@ export default class MathUtil {
     return Math.ceil(value / nearest) * nearest;
   }
 
-  static clamp(value, min, max) {
+  static clamp(value, min = 0, max = 1) {
     const minCheckValue = Math.min(value, max);
     const maxCheckValue = Math.max(minCheckValue, min);
     return maxCheckValue;
@@ -67,8 +67,12 @@ export default class MathUtil {
     return Math.round(value / nearest) * nearest;
   }
 
-  static sum(arr, key) {
-    return arr.reduce((accumulator, item) => accumulator + item[key], 0);
+  static sum(arr, key = false) {
+    return arr.reduce(
+      (accumulator, item) =>
+        key ? accumulator + item[key] : accumulator + item,
+      0,
+    );
   }
 
   static within(num, min, max) {

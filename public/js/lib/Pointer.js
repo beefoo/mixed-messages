@@ -31,15 +31,19 @@ export default class Pointer {
     return $target.closest(selector);
   }
 
+  getData(key) {
+    return key in this.data ? this.data[key] : false;
+  }
+
+  getGesture() {
+    return this.gesture || 'tap';
+  }
+
   static getPositionFromEvent(event) {
     return {
       x: event.clientX,
       y: event.clientY,
     };
-  }
-
-  getGesture() {
-    return this.gesture || 'tap';
   }
 
   onMove(event) {
@@ -91,10 +95,6 @@ export default class Pointer {
   }
 
   setData(key, data) {
-    if (key in this.data) {
-      this.data[key] = Object.assign(this.data[key], data);
-      return;
-    }
     this.data[key] = data;
   }
 }

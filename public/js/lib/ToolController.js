@@ -25,13 +25,13 @@ export default class ToolController {
 
   move(pointer) {
     // retrieve the syllable from the pointer
-    const syllable = ui.getSyllableByCharId(charId);
+    const syllable = this.getSyllableFromPointer(pointer);
     if (!syllable) return;
     const { els, wordIndex, index } = syllable;
     if (els.length < 1) return;
 
     // get delta movement in percentage of bounding box
-    const { bbox } = ui;
+    const { bbox } = this.ui;
     const { delta } = pointer;
     if (!delta) return;
     const nx = (delta.x / bbox.width) * 100;
@@ -75,16 +75,67 @@ export default class ToolController {
 
   pitch(pointer) {
     // retrieve the syllable from the pointer
-    const syllable = ui.getSyllableByCharId(charId);
+    const syllable = this.getSyllableFromPointer(pointer);
     if (!syllable) return;
+    const startingElDimensions = pointer.getData('pitchStartElDimensions');
+    if (!startingElDimensions) return;
     const { els, wordIndex, index } = syllable;
-    if (els.length < 1) return;
+    if (els.length < 1 || els.length !== startingElDimensions.length) return;
 
     // get delta movement in percentage of bounding box
-    const { bbox } = ui;
+    const { bbox } = this.ui;
     const { deltaFromStart } = pointer;
     if (!deltaFromStart) return;
-    const dx = deltaFromStart.x / bbox.width;
-    const dy = deltaFromStart.y / bbox.height;
+    const dx = (deltaFromStart.x / bbox.width) * 100;
+    const dy = (-deltaFromStart.y / bbox.height) * 100;
+
+    // scale the syllable
+    const minScale = { x: 0.1, y: 0.1 };
+    const maxScale = { x: 3.0, y: 4.0 };
+    const i = wordIndex;
+    const j = index;
+    let x = els[0].left;
+    els.forEach((el, k) => {
+      const { $el, original } = el;
+      const { width, height, top } = startingElDimensions[k];
+      // calculate new height within bounds
+      const maxWidth = original.width * maxScale.x;
+      const minWidth = original.width * minScale.x;
+      const maxHeight = original.height * maxScale.y;
+      const minHeight = original.height * minScale.y;
+      const newWidth = MathUtil.clamp(
+        width + dx / els.length,
+        minWidth,
+        maxWidth,
+      );
+      const newHeight = MathUtil.clamp(height + dy, minHeight, maxHeight);
+      const newLeft = x;
+      const newTop = top + (height - newHeight) * 0.5;
+      x += newWidth;
+      $el.style.left = `${newLeft}%`;
+      $el.style.top = `${newTop}%`;
+      $el.style.width = `${newWidth}%`;
+      $el.style.height = `${newHeight}%`;
+      this.ui.data.words[i].syllables[j].els[k].left = newLeft;
+      this.ui.data.words[i].syllables[j].els[k].top = newTop;
+      this.ui.data.words[i].syllables[j].els[k].width = newWidth;
+      this.ui.data.words[i].syllables[j].els[k].height = newHeight;
+    });
+  }
+
+  pitchStart(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+    const { els } = syllable;
+    const startingElDimensions = els.map((el) => {
+      return {
+        top: el.top,
+        left: el.left,
+        width: el.width,
+        height: el.height,
+      };
+    });
+    pointer.setData('pitchStartElDimensions', startingElDimensions);
   }
 }

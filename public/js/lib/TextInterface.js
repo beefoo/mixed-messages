@@ -45,11 +45,20 @@ export default class TextInterface {
         data.words[i].syllables[j].index = j;
         data.words[i].syllables[j].id = `syll-${i}-${j}`;
         data.words[i].syllables[j].els = $els.map(($el) => {
+          const left = parseFloat($el.getAttribute('data-left'));
+          const width = parseFloat($el.getAttribute('data-width'));
           return {
             $el,
-            left: parseFloat($el.getAttribute('data-left')),
-            width: parseFloat($el.getAttribute('data-width')),
             top: 0,
+            left,
+            width,
+            height: 100,
+            original: {
+              top: 0,
+              left,
+              width,
+              height: 100,
+            },
           };
         });
       });
@@ -67,6 +76,8 @@ export default class TextInterface {
             relativeLeft = el.left - first.left;
           }
           data.words[i].syllables[j].els[k].relativeLeft = relativeLeft;
+          data.words[i].syllables[j].els[k].original.relativeLeft =
+            relativeLeft;
         });
       });
     });
@@ -100,10 +111,8 @@ export default class TextInterface {
           const classList = `word-${i} syll-${i}-${j}`;
           const charStart = wordStart + k * charWidth;
           html += `<div id="${id}" class="char ${classList}" style="left: ${charStart}%; width: ${charWidth}%" data-left="${charStart}" data-width="${charWidth}" data-top="0">`;
-          html += '  <div class="transformer">';
-          html += `    <div class="char-ghost">${letterData.html}</div>`;
-          html += `    <div class="char-image">${letterData.html}</div>`;
-          html += '  </div>';
+          html += `  <div class="char-ghost">${letterData.html}</div>`;
+          html += `  <div class="char-image">${letterData.html}</div>`;
           html += '</div>';
         });
       });
