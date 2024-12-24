@@ -44,7 +44,7 @@ export default class TextInterface {
         data.words[i].syllables[j].wordIndex = i;
         data.words[i].syllables[j].index = j;
         data.words[i].syllables[j].id = `syll-${i}-${j}`;
-        data.words[i].syllables[j].els = $els.map(($el) => {
+        const els = $els.map(($el) => {
           const left = parseFloat($el.getAttribute('data-left'));
           const width = parseFloat($el.getAttribute('data-width'));
           return {
@@ -61,6 +61,11 @@ export default class TextInterface {
             },
           };
         });
+        data.words[i].syllables[j].els = els;
+        if ($els.length > 0) {
+          data.words[i].syllables[j].top = els[0].top;
+          data.words[i].syllables[j].left = els[0].left;
+        }
       });
     });
     // Add relative positions
