@@ -143,31 +143,48 @@ p {
   width: 95%;
   position: relative;
 }
-.text .char {
+button.syll {
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 2px dotted transparent;
+}
+.text .syll,
+.syll .char {
   position: absolute;
   height: 100%;
+  top: 0;
 }
-.text .char .transformer,
-.text .char .char-image,
-.text .char .char-ghost,
-.text .char svg {
+.syll .char .char-image,
+.syll .char .char-ghost,
+.syll .char svg {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
 }
-.text .char path {
+.syll .char path {
   fill: var(--base-lightest);
 }
-.text .char.selected path {
+.syll.selected .char path,
+.syll:hover .char path,
+.syll:focus-visible .char path {
   fill: var(--secondary-light);
 }
-.text .char .char-ghost {
+.syll.selected,
+.syll:focus-visible {
+  outline: none;
+  border-color: var(--secondary-light);
+}
+.syll .char .char-ghost {
   opacity: 0;
   pointer-events: none;
 }
-.text .char.playing .char-ghost {
+.syll.playing .char .char-ghost {
   animation: highlight 0.3s ease-in-out;
   animation-fill-mode: none;
 }

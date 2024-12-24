@@ -38,7 +38,7 @@ export default class App {
     });
     this.tools = new ToolSelector();
     this.pointers = new PointerManager({
-      childSelector: '.char',
+      childSelector: '.syll',
       onDrag: (pointer) => {
         this.onPointerDrag(pointer);
       },
@@ -74,7 +74,7 @@ export default class App {
   }
 
   onPointerStart(pointer) {
-    if (pointer.$target) this.ui.selectSyllableByCharId(pointer.$target.id);
+    if (pointer.$target) this.ui.selectSyllableByFromEl(pointer.$target);
     this.ui.refreshBBox();
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Start`;
@@ -116,7 +116,7 @@ export default class App {
     const sequence = [];
     words.forEach((word) => {
       word.syllables.forEach((syll) => {
-        const { id, start, end, els } = syll;
+        const { id, start, end, $el } = syll;
         const playerItem = {
           id: `player-${id}`,
           group: id,
@@ -132,11 +132,8 @@ export default class App {
           start,
           latency: 0,
           task: (_when) => {
-            els.forEach((el) => {
-              const { $el } = el;
-              $el.classList.remove('playing');
-              setTimeout(() => $el.classList.add('playing'), 1);
-            });
+            $el.classList.remove('playing');
+            setTimeout(() => $el.classList.add('playing'), 1);
           },
         };
         sequence.push(playerItem, uiItem);
