@@ -137,6 +137,7 @@ p {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .text {
   height: 100px;
@@ -151,6 +152,9 @@ button.syll {
   cursor: pointer;
   box-sizing: border-box;
   border: 2px dotted transparent;
+}
+.syll.flip-x {
+  transform: scale3d(-1, 1, 1);
 }
 .text .syll,
 .syll .char {
