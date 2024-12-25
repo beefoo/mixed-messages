@@ -44,10 +44,12 @@ export default class AudioPlayer {
     return this.ctx.state === 'running';
   }
 
-  play(start, end, when = 0, volume = 1, reverse = false) {
+  play(start, end, when = 0, options = {}) {
     if (!this.isReady()) return false;
     const { fadeIn, fadeOut } = this.options;
     const { ctx, buf, rbuf } = this;
+    const volume = 'volume' in options ? options.volume : 1.0;
+    const reverse = 'reverse' in options ? options.reverse : false;
     const dur = end - start + fadeIn + fadeOut;
     let offsetStart = Math.max(0, start - fadeIn);
     if (reverse) {

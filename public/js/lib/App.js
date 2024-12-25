@@ -122,8 +122,8 @@ export default class App {
           group: id,
           start,
           latency,
-          task: (when) => {
-            this.player.play(start, end, when);
+          task: (when, options) => {
+            this.player.play(start, end, when, options);
           },
         };
         const uiItem = {
@@ -131,7 +131,7 @@ export default class App {
           group: id,
           start,
           latency: 0,
-          task: (_when) => {
+          task: (_when, _options) => {
             $el.classList.remove('playing');
             setTimeout(() => $el.classList.add('playing'), 1);
           },

@@ -1,5 +1,4 @@
 import Alphabet from './Alphabet.js';
-import MathUtil from './MathUtil.js';
 
 export default class TextInterface {
   constructor(options = {}) {

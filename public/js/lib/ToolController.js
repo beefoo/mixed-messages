@@ -1,4 +1,4 @@
-import MathUtil from './MathUtil.js';
+import MathHelper from './MathHelper.js';
 
 export default class ToolController {
   constructor(options = {}) {
@@ -42,7 +42,7 @@ export default class ToolController {
     const maxY = 200;
     const newLeft = left + nx;
     const adjustedLeft = isFlipped ? newLeft + width : newLeft;
-    const newTop = MathUtil.clamp(top + ny, minY, maxY);
+    const newTop = MathHelper.clamp(top + ny, minY, maxY);
     $el.style.left = `${adjustedLeft}%`;
     $el.style.top = `${newTop}%`;
     this.ui.data.words[i].syllables[j].left = newLeft;
@@ -88,26 +88,45 @@ export default class ToolController {
     const i = wordIndex;
     const j = index;
     const { top, left, width, height } = startingElDimensions;
-    // calculate new height within bounds
     const maxWidth = originalRect.width * maxScale.x;
     const minWidth = originalRect.width * minScale.x;
     const maxHeight = originalRect.height * maxScale.y;
     const minHeight = originalRect.height * minScale.y;
-    let newWidth = MathUtil.clamp(width + dx, minWidth, maxWidth);
+    let newWidth = MathHelper.clamp(width + dx, minWidth, maxWidth);
     if (newWidth >= 0 && newWidth < 1.0) newWidth = 1.0;
     else if (newWidth < 0 && newWidth > -1.0) newWidth = -1.0;
-    const newHeight = MathUtil.clamp(height + dy, minHeight, maxHeight);
+    const newHeight = MathHelper.clamp(height + dy, minHeight, maxHeight);
     const newTop = top + (height - newHeight) * 0.5;
     const isFlipped = newWidth < 0;
+    const adjustedLeft = isFlipped ? left + newWidth : left;
     if (isFlipped) $el.classList.add('flip-x');
     else $el.classList.remove('flip-x');
     $el.style.top = `${newTop}%`;
-    $el.style.left = isFlipped ? `${left + newWidth}%` : `${left}%`;
+    $el.style.left = `${adjustedLeft}%`;
     $el.style.width = `${Math.abs(newWidth)}%`;
     $el.style.height = `${newHeight}%`;
     this.ui.data.words[i].syllables[j].top = newTop;
     this.ui.data.words[i].syllables[j].width = newWidth;
     this.ui.data.words[i].syllables[j].height = newHeight;
+
+    // update the syllable in the sequencer
+    const { sequencer } = this;
+    const { sequence } = sequencer;
+    // adjust start time if flipped
+    const syllLeft = adjustedLeft;
+    let nStart = syllLeft / 100.0;
+    if (nStart < 0 || nStart > 1.0) nStart = nStart % 1.0; // wrap it if out of bounds
+    const newStart = sequencer.duration * nStart;
+    const newEnd = newStart + syllable.duration;
+    this.ui.data.words[i].syllables[j].start = newStart;
+    this.ui.data.words[i].syllables[j].end = newEnd;
+    sequence.forEach((item, index) => {
+      const { group } = item;
+      // update start time for player and UI callback
+      if (group === syllable.id) {
+        this.sequencer.sequence[index].start = newStart;
+      }
+    });
   }
 
   pitchStart(pointer) {

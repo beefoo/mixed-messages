@@ -69,7 +69,7 @@ export default class Sequencer {
 
       if (lastIterationPlayed >= iteration) return;
       if (progress >= start) {
-        task(this.startedAt + later);
+        task(this.startedAt + later, step);
         this.sequence[i].lastIterationPlayed = iteration;
       }
     });

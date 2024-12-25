@@ -1,4 +1,4 @@
-export default class MathUtil {
+export default class MathHelper {
   static ceilToNearest(value, nearest) {
     return Math.ceil(value / nearest) * nearest;
   }

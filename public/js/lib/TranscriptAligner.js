@@ -1,4 +1,4 @@
-import MathUtil from './MathUtil.js';
+import MathHelper from './MathHelper.js';
 import Meyda from '../vendor/meyda.js';
 import nlp from '../vendor/compromise/one/compromise-one.mjs';
 import plg from '../vendor/compromise-speech/compromise-speech.mjs';
@@ -56,9 +56,9 @@ export default class TranscriptAligner {
 
   getWaveform(height = 1.0) {
     const { rms } = this.audioData;
-    const maxRms = MathUtil.maxList(rms);
-    const minRms = MathUtil.minList(rms);
-    return rms.map((value) => MathUtil.norm(value, minRms, maxRms) * height);
+    const maxRms = MathHelper.maxList(rms);
+    const minRms = MathHelper.minList(rms);
+    return rms.map((value) => MathHelper.norm(value, minRms, maxRms) * height);
   }
 
   getSyllables() {
