@@ -48,8 +48,9 @@ export default class AudioPlayer {
     if (!this.isReady()) return false;
     const { fadeIn, fadeOut } = this.options;
     const { ctx, buf, rbuf } = this;
-    const volume = 'volume' in options ? options.volume : 1.0;
+    const volume = 'volume' in options ? options.volume : 1;
     const reverse = 'reverse' in options ? options.reverse : false;
+    const playbackRate = 'playbackRate' in options ? options.playbackRate : 1;
     const dur = end - start + fadeIn + fadeOut;
     let offsetStart = Math.max(0, start - fadeIn);
     if (reverse) {
@@ -61,6 +62,9 @@ export default class AudioPlayer {
     // set audio buffer
     if (reverse) audioSource.buffer = rbuf;
     else audioSource.buffer = buf;
+
+    // set playback rate
+    audioSource.playbackRate.value = playbackRate;
 
     // fade in
     gainNode.gain.setValueAtTime(Number.EPSILON, when);

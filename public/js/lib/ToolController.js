@@ -79,35 +79,25 @@ export default class ToolController {
     const { deltaFromStart } = pointer;
     if (!deltaFromStart) return;
     const dx = (deltaFromStart.x / bbox.width) * 100;
-    const dy = (-deltaFromStart.y / bbox.height) * 100;
 
     // scale the syllable
     const { wordIndex, index, originalRect, $el } = syllable;
-    const minScale = { x: -3.0, y: 0.1 };
-    const maxScale = { x: 3.0, y: 4.0 };
+    const scaleRange = [-3.0, 3.0];
     const i = wordIndex;
     const j = index;
-    const { top, left, width, height } = startingElDimensions;
-    const maxWidth = originalRect.width * maxScale.x;
-    const minWidth = originalRect.width * minScale.x;
-    const maxHeight = originalRect.height * maxScale.y;
-    const minHeight = originalRect.height * minScale.y;
+    const { left, width } = startingElDimensions;
+    const minWidth = originalRect.width * scaleRange[0];
+    const maxWidth = originalRect.width * scaleRange[1];
     let newWidth = MathHelper.clamp(width + dx, minWidth, maxWidth);
     if (newWidth >= 0 && newWidth < 1.0) newWidth = 1.0;
     else if (newWidth < 0 && newWidth > -1.0) newWidth = -1.0;
-    const newHeight = MathHelper.clamp(height + dy, minHeight, maxHeight);
-    const newTop = top + (height - newHeight) * 0.5;
     const isFlipped = newWidth < 0;
     const adjustedLeft = isFlipped ? left + newWidth : left;
     if (isFlipped) $el.classList.add('flip-x');
     else $el.classList.remove('flip-x');
-    $el.style.top = `${newTop}%`;
     $el.style.left = `${adjustedLeft}%`;
     $el.style.width = `${Math.abs(newWidth)}%`;
-    $el.style.height = `${newHeight}%`;
-    this.ui.data.words[i].syllables[j].top = newTop;
     this.ui.data.words[i].syllables[j].width = newWidth;
-    this.ui.data.words[i].syllables[j].height = newHeight;
 
     // update the syllable in the sequencer
     const { sequencer } = this;
@@ -120,11 +110,19 @@ export default class ToolController {
     const newEnd = newStart + syllable.duration;
     this.ui.data.words[i].syllables[j].start = newStart;
     this.ui.data.words[i].syllables[j].end = newEnd;
+    const scale = MathHelper.lerp(
+      scaleRange[0],
+      scaleRange[1],
+      MathHelper.norm(newWidth, minWidth, maxWidth),
+    );
+    const playbackRate = 1.0 / Math.abs(scale);
     sequence.forEach((item, index) => {
       const { group } = item;
       // update start time for player and UI callback
       if (group === syllable.id) {
         this.sequencer.sequence[index].start = newStart;
+        this.sequencer.sequence[index].reverse = isFlipped;
+        this.sequencer.sequence[index].playbackRate = playbackRate;
       }
     });
   }
