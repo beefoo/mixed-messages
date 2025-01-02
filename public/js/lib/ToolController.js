@@ -189,4 +189,27 @@ export default class ToolController {
     const startingElDimensions = { left, width };
     pointer.setData('pitchStartElDimensions', startingElDimensions);
   }
+
+  trim(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // get delta movement in percentage of syllable width
+    const { bbox } = this.ui;
+    const { delta } = pointer;
+    const { clipwidth, width, $el, wordIndex, index } = syllable;
+    if (!delta) return;
+    let nx = -(delta.x / bbox.width) * (100 / width) * 100;
+
+    // move syllable elements in UI
+
+    const i = wordIndex;
+    const j = index;
+    const minClip = 0;
+    const maxClip = 80;
+    const newWidth = MathHelper.clamp(clipwidth + nx, minClip, maxClip);
+    $el.style.clipPath = `inset(0 ${newWidth}% 0 0)`;
+    this.ui.data.words[i].syllables[j].clipwidth = newWidth;
+  }
 }
