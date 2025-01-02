@@ -39,7 +39,7 @@ export default class TextInterface {
           left: (start / totalDur) * 100,
           width: (duration / totalDur) * 100,
           height: 100,
-          clipwidth: 0,
+          trim: 0,
         };
         const syllData = {
           duration,

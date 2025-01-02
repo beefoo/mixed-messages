@@ -52,7 +52,8 @@ export default class AudioPlayer {
     const gain = this.constructor.volumeToGain(volume);
     const reverse = 'reverse' in options ? options.reverse : false;
     const playbackRate = 'playbackRate' in options ? options.playbackRate : 1;
-    const dur = end - start + fadeIn + fadeOut;
+    const trim = 'trim' in options ? options.trim : 0;
+    const dur = end - start + fadeIn + fadeOut - trim;
     let offsetStart = Math.max(0, start - fadeIn);
     if (reverse) {
       offsetStart = rbuf.duration - offsetStart - dur;

@@ -198,18 +198,29 @@ export default class ToolController {
     // get delta movement in percentage of syllable width
     const { bbox } = this.ui;
     const { delta } = pointer;
-    const { clipwidth, width, $el, wordIndex, index } = syllable;
+    const { trim, width, $el, wordIndex, index } = syllable;
     if (!delta) return;
     let nx = -(delta.x / bbox.width) * (100 / width) * 100;
 
-    // move syllable elements in UI
-
+    // clip syllable elements in UI
     const i = wordIndex;
     const j = index;
-    const minClip = 0;
-    const maxClip = 80;
-    const newWidth = MathHelper.clamp(clipwidth + nx, minClip, maxClip);
-    $el.style.clipPath = `inset(0 ${newWidth}% 0 0)`;
-    this.ui.data.words[i].syllables[j].clipwidth = newWidth;
+    const minTrim = 0;
+    const maxTrim = 80;
+    const trimAmount = MathHelper.clamp(trim + nx, minTrim, maxTrim);
+    $el.style.clipPath = `inset(0 ${trimAmount}% 0 0)`;
+    this.ui.data.words[i].syllables[j].trim = trimAmount;
+
+    // update the syllable in the sequencer
+    const { sequencer } = this;
+    const { sequence } = sequencer;
+    const trimSeconds = syllable.duration * (trimAmount / 100.0);
+    sequence.forEach((item, index) => {
+      const { group } = item;
+      // update start time for player and UI callback
+      if (group === syllable.id) {
+        this.sequencer.sequence[index].trim = trimSeconds;
+      }
+    });
   }
 }
