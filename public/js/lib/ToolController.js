@@ -21,6 +21,46 @@ export default class ToolController {
     return syllable;
   }
 
+  loudness(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // get delta movement in percentage of bounding box
+    const { bbox } = this.ui;
+    const { delta } = pointer;
+    if (!delta) return;
+    const dy = -(delta.y / bbox.height) * 100;
+
+    // scale the syllable
+    const { top, height, wordIndex, index, originalRect, $el } = syllable;
+    const scaleRange = [0.25, 2.5];
+    const i = wordIndex;
+    const j = index;
+    const minHeight = originalRect.height * scaleRange[0];
+    const maxHeight = originalRect.height * scaleRange[1];
+    const newHeight = MathHelper.clamp(height + dy, minHeight, maxHeight);
+    const newTop = top + (height - newHeight) * 0.5;
+    $el.style.top = `${newTop}%`;
+    $el.style.height = `${newHeight}%`;
+    this.ui.data.words[i].syllables[j].top = newTop;
+    this.ui.data.words[i].syllables[j].height = newHeight;
+
+    // update the syllable in the sequencer
+    const { sequencer } = this;
+    const { sequence } = sequencer;
+    const volume = MathHelper.lerp(
+      scaleRange[0],
+      scaleRange[1],
+      MathHelper.norm(newHeight, minHeight, maxHeight),
+    );
+    sequence.forEach((item, index) => {
+      if (item.group === syllable.id) {
+        this.sequencer.sequence[index].volume = volume;
+      }
+    });
+  }
+
   move(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
@@ -59,66 +99,10 @@ export default class ToolController {
     this.ui.data.words[i].syllables[j].start = newStart;
     this.ui.data.words[i].syllables[j].end = newEnd;
     sequence.forEach((item, index) => {
-      const { group } = item;
-      // update start time for player and UI callback
-      if (group === syllable.id) {
+      if (item.group === syllable.id) {
         this.sequencer.sequence[index].start = newStart;
       }
     });
-  }
-
-  loudness(pointer) {
-    // retrieve the syllable from the pointer
-    const syllable = this.getSyllableFromPointer(pointer);
-    if (!syllable) return;
-    const startingElDimensions = pointer.getData('loudnessStartElDimensions');
-    if (!startingElDimensions) return;
-
-    // get delta movement in percentage of bounding box
-    const { bbox } = this.ui;
-    const { deltaFromStart } = pointer;
-    if (!deltaFromStart) return;
-    const dy = -(deltaFromStart.y / bbox.height) * 100;
-
-    // scale the syllable
-    const { wordIndex, index, originalRect, $el } = syllable;
-    const scaleRange = [0.25, 2.5];
-    const i = wordIndex;
-    const j = index;
-    const { top, height } = startingElDimensions;
-    const minHeight = originalRect.height * scaleRange[0];
-    const maxHeight = originalRect.height * scaleRange[1];
-    const newHeight = MathHelper.clamp(height + dy, minHeight, maxHeight);
-    const newTop = top + (height - newHeight) * 0.5;
-    $el.style.top = `${newTop}%`;
-    $el.style.height = `${newHeight}%`;
-    this.ui.data.words[i].syllables[j].top = newTop;
-    this.ui.data.words[i].syllables[j].height = newHeight;
-
-    // update the syllable in the sequencer
-    const { sequencer } = this;
-    const { sequence } = sequencer;
-    const volume = MathHelper.lerp(
-      scaleRange[0],
-      scaleRange[1],
-      MathHelper.norm(newHeight, minHeight, maxHeight),
-    );
-    sequence.forEach((item, index) => {
-      const { group } = item;
-      // update start time for player and UI callback
-      if (group === syllable.id) {
-        this.sequencer.sequence[index].volume = volume;
-      }
-    });
-  }
-
-  loudnessStart(pointer) {
-    // retrieve the syllable from the pointer
-    const syllable = this.getSyllableFromPointer(pointer);
-    if (!syllable) return;
-    const { top, height } = syllable;
-    const startingElDimensions = { top, height };
-    pointer.setData('loudnessStartElDimensions', startingElDimensions);
   }
 
   pitch(pointer) {
@@ -171,9 +155,7 @@ export default class ToolController {
     );
     const playbackRate = 1.0 / Math.abs(scale);
     sequence.forEach((item, index) => {
-      const { group } = item;
-      // update start time for player and UI callback
-      if (group === syllable.id) {
+      if (item.group === syllable.id) {
         this.sequencer.sequence[index].start = newStart;
         this.sequencer.sequence[index].reverse = isFlipped;
         this.sequencer.sequence[index].playbackRate = playbackRate;
@@ -216,9 +198,7 @@ export default class ToolController {
     const { sequence } = sequencer;
     const trimSeconds = syllable.duration * (trimAmount / 100.0);
     sequence.forEach((item, index) => {
-      const { group } = item;
-      // update start time for player and UI callback
-      if (group === syllable.id) {
+      if (item.group === syllable.id) {
         this.sequencer.sequence[index].trim = trimSeconds;
       }
     });
