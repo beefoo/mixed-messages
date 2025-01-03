@@ -109,21 +109,18 @@ export default class ToolController {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
     if (!syllable) return;
-    const startingElDimensions = pointer.getData('pitchStartElDimensions');
-    if (!startingElDimensions) return;
 
     // get delta movement in percentage of bounding box
     const { bbox } = this.ui;
-    const { deltaFromStart } = pointer;
-    if (!deltaFromStart) return;
-    const dx = (deltaFromStart.x / bbox.width) * 100;
+    const { delta } = pointer;
+    if (!delta) return;
+    const dx = (delta.x / bbox.width) * 100;
 
     // scale the syllable
-    const { wordIndex, index, originalRect, $el } = syllable;
+    const { left, width, wordIndex, index, originalRect, $el } = syllable;
     const scaleRange = [-3.0, 3.0];
     const i = wordIndex;
     const j = index;
-    const { left, width } = startingElDimensions;
     const minWidth = originalRect.width * scaleRange[0];
     const maxWidth = originalRect.width * scaleRange[1];
     let newWidth = MathHelper.clamp(width + dx, minWidth, maxWidth);
@@ -161,15 +158,6 @@ export default class ToolController {
         this.sequencer.sequence[index].playbackRate = playbackRate;
       }
     });
-  }
-
-  pitchStart(pointer) {
-    // retrieve the syllable from the pointer
-    const syllable = this.getSyllableFromPointer(pointer);
-    if (!syllable) return;
-    const { left, width } = syllable;
-    const startingElDimensions = { left, width };
-    pointer.setData('pitchStartElDimensions', startingElDimensions);
   }
 
   trim(pointer) {
