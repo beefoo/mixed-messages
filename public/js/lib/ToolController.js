@@ -21,6 +21,42 @@ export default class ToolController {
     return syllable;
   }
 
+  bass(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // get delta movement in percentage of bounding box
+    const { bbox } = this.ui;
+    const { delta } = pointer;
+    if (!delta) return;
+    const dy = -delta.y / bbox.height;
+
+    // calculate new bass
+    const { bass, wordIndex, index, $el } = syllable;
+    const minBass = -2;
+    const maxBass = 2;
+    const newBass = MathHelper.clamp(bass + dy, minBass, maxBass);
+    const i = wordIndex;
+    const j = index;
+    const n = MathHelper.norm(newBass, minBass, maxBass);
+    const t = MathHelper.lerp(-1.0, 1.0, n);
+    this.ui.data.words[i].syllables[j].bass = newBass;
+
+    // update the UI
+    // if greater than zero, make more transparent
+    if (t >= 0) {
+      const opacity = MathHelper.lerp(1.0, 0.25, t);
+      $el.style.opacity = opacity;
+      $el.style.filter = 'blue(0px)';
+      // if less than zero, blur
+    } else {
+      const blur = MathHelper.lerp(0, 10.0, Math.abs(t));
+      $el.style.opacity = 1;
+      $el.style.filter = `blur(${blur}px)`;
+    }
+  }
+
   loudness(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);

@@ -39,13 +39,14 @@ export default class TextInterface {
           left: (start / totalDur) * 100,
           width: (duration / totalDur) * 100,
           height: 100,
-          trim: 0,
         };
         const syllData = {
           duration,
           wordIndex: i,
           index: j,
           id: `syll-${i}-${j}`,
+          trim: 0,
+          bass: 0,
           originalRect: structuredClone(rectData),
         };
         data.words[i].syllables[j] = Object.assign(syll, syllData, rectData);
