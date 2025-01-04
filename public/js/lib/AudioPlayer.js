@@ -88,7 +88,7 @@ export default class AudioPlayer {
     // set bass and treble if they are positive (between 0 and 1)
     if (bass > 0 || treble > 0) {
       // boost or attenuate bass/treble depending on if we are boosting bass or treble
-      const boost = 12.0;
+      const boost = 24.0;
       const bassValue =
         bass > 0
           ? MathHelper.lerp(0, boost, bass)
@@ -98,18 +98,26 @@ export default class AudioPlayer {
           ? MathHelper.lerp(0, boost, treble)
           : MathHelper.lerp(0, -boost, bass);
 
-      const bassFilter = context.createBiquadFilter();
+      const bandpassFilter = ctx.createBiquadFilter();
+      bandpassFilter.type = 'bandpass';
+      bandpassFilter.frequency.value = bass > 0 ? 200 : 2000;
+      const n = bass > 0 ? bass : treble;
+      const q = MathHelper.lerp(1, 5, n);
+      bandpassFilter.Q.value = q;
+
+      const bassFilter = ctx.createBiquadFilter();
       bassFilter.type = 'lowshelf';
       bassFilter.frequency.value = 200;
       bassFilter.gain.value = bassValue;
 
-      const trebleFilter = context.createBiquadFilter();
+      const trebleFilter = ctx.createBiquadFilter();
       trebleFilter.type = 'highshelf';
       trebleFilter.frequency.value = 2000;
       trebleFilter.gain.value = trebleValue;
 
       audioSource.connect(bassFilter);
-      bassFilter.connect(gainNode);
+      bassFilter.connect(bandpassFilter);
+      bandpassFilter.connect(gainNode);
     } else {
       audioSource.connect(gainNode);
     }
