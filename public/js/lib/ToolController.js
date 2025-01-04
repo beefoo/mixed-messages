@@ -55,6 +55,18 @@ export default class ToolController {
       $el.style.opacity = 1;
       $el.style.filter = `blur(${blur}px)`;
     }
+
+    // update the syllable in the sequencer
+    const { sequencer } = this;
+    const { sequence } = sequencer;
+    const bassValue = t < 0 ? -t : 0;
+    const trebleValue = t > 0 ? t : 0;
+    sequence.forEach((item, index) => {
+      if (item.group === syllable.id) {
+        this.sequencer.sequence[index].bass = bassValue;
+        this.sequencer.sequence[index].treble = trebleValue;
+      }
+    });
   }
 
   loudness(pointer) {

@@ -1,3 +1,5 @@
+import MathHelper from './MathHelper.js';
+
 export default class AudioPlayer {
   constructor(options = {}) {
     const defaults = {
@@ -48,16 +50,24 @@ export default class AudioPlayer {
     if (!this.isReady()) return false;
     const { fadeIn, fadeOut } = this.options;
     const { ctx, buf, rbuf } = this;
+
+    // define defaults and set options if they exist
     const volume = 'volume' in options ? options.volume : 1;
     const gain = this.constructor.volumeToGain(volume);
     const reverse = 'reverse' in options ? options.reverse : false;
     const playbackRate = 'playbackRate' in options ? options.playbackRate : 1;
     const trim = 'trim' in options ? options.trim : 0;
+    const bass = 'bass' in options ? options.bass : 0;
+    const treble = 'treble' in options ? options.treble : 0;
+
+    // calculate duration and offset
     const dur = end - start + fadeIn + fadeOut - trim;
     let offsetStart = Math.max(0, start - fadeIn);
     if (reverse) {
       offsetStart = rbuf.duration - offsetStart - dur;
     }
+
+    // setup source and nodes
     const audioSource = ctx.createBufferSource();
     const gainNode = ctx.createGain();
 
@@ -75,8 +85,36 @@ export default class AudioPlayer {
     gainNode.gain.setValueAtTime(gain, when + dur - fadeOut);
     gainNode.gain.exponentialRampToValueAtTime(Number.EPSILON, when + dur);
 
+    // set bass and treble if they are positive (between 0 and 1)
+    if (bass > 0 || treble > 0) {
+      // boost or attenuate bass/treble depending on if we are boosting bass or treble
+      const boost = 12.0;
+      const bassValue =
+        bass > 0
+          ? MathHelper.lerp(0, boost, bass)
+          : MathHelper.lerp(0, -boost, treble);
+      const trebleValue =
+        treble > 0
+          ? MathHelper.lerp(0, boost, treble)
+          : MathHelper.lerp(0, -boost, bass);
+
+      const bassFilter = context.createBiquadFilter();
+      bassFilter.type = 'lowshelf';
+      bassFilter.frequency.value = 200;
+      bassFilter.gain.value = bassValue;
+
+      const trebleFilter = context.createBiquadFilter();
+      trebleFilter.type = 'highshelf';
+      trebleFilter.frequency.value = 2000;
+      trebleFilter.gain.value = trebleValue;
+
+      audioSource.connect(bassFilter);
+      bassFilter.connect(gainNode);
+    } else {
+      audioSource.connect(gainNode);
+    }
+
     // connect and play
-    audioSource.connect(gainNode);
     gainNode.connect(ctx.destination);
     audioSource.start(when, offsetStart, dur);
     return audioSource;
