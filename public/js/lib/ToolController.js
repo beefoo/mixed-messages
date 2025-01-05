@@ -69,6 +69,19 @@ export default class ToolController {
     });
   }
 
+  duplicate(pointer) {
+    this.move(pointer);
+  }
+
+  duplicateStart(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    const newSyll = this.ui.cloneSyllable(syllable);
+    pointer.setTarget(newSyll.$el);
+  }
+
   loudness(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);

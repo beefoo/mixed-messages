@@ -1,4 +1,5 @@
 import Alphabet from './Alphabet.js';
+import CollectionHelper from './CollectionHelper.js';
 
 export default class TextInterface {
   constructor(options = {}) {
@@ -15,6 +16,21 @@ export default class TextInterface {
     this.alpha = new Alphabet();
     this.$el = document.getElementById(this.options.el);
     this.refreshBBox();
+  }
+
+  cloneSyllable(syll) {
+    const { wordIndex } = syll;
+    const newSyll = structuredClone(CollectionHelper.objectOmit(syll, ['$el']));
+    const $newEl = syll.$el.cloneNode(true);
+    this.$el.append($newEl);
+    const newIndex = this.data.words[wordIndex].syllables.length;
+    newSyll.id = `syll-${wordIndex}-${newIndex}`;
+    $newEl.id = newSyll.id;
+    $newEl.setAttribute('data-syll', newIndex);
+    newSyll.$el = $newEl;
+    newSyll.index = newIndex;
+    this.data.words[wordIndex].syllables.push(newSyll);
+    return newSyll;
   }
 
   getSyllableFromEl($el) {
@@ -83,10 +99,8 @@ export default class TextInterface {
         chars.forEach((char, k) => {
           const letterData = this.alpha.get(char);
           if (!letterData) return;
-          const id = `char-${i}-${j}-${k}`;
-          const classList = `word-${i} syll-${i}-${j}`;
           const charLeft = k * charWidth;
-          html += `<div id="${id}" class="char ${classList}" style="left: ${charLeft}%; width: ${charWidth}%">`;
+          html += `<div class="char" style="left: ${charLeft}%; width: ${charWidth}%">`;
           html += `  <div class="char-ghost">${letterData.html}</div>`;
           html += `  <div class="char-image">${letterData.html}</div>`;
           html += '</div>';

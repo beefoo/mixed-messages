@@ -97,4 +97,8 @@ export default class Pointer {
   setData(key, data) {
     this.data[key] = data;
   }
+
+  setTarget($el) {
+    this.$target = $el;
+  }
 }
