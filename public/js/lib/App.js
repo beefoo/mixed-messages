@@ -54,11 +54,37 @@ export default class App {
       target: 'text-wrapper',
     });
     this.controller = new ToolController({
+      app: this,
       player: this.player,
       sequencer: this.sequencer,
       ui: this.ui,
     });
     this.update();
+  }
+
+  getSequenceItems(syll) {
+    const { latency } = this.options;
+    const { id, start, end, $el } = syll;
+    const playerItem = {
+      id: `player-${id}`,
+      group: id,
+      start,
+      latency,
+      task: (when, options) => {
+        this.player.play(start, end, when, options);
+      },
+    };
+    const uiItem = {
+      id: `ui-${id}`,
+      group: id,
+      start,
+      latency: 0,
+      task: (_when, _options) => {
+        $el.classList.remove('playing');
+        setTimeout(() => $el.classList.add('playing'), 1);
+      },
+    };
+    return [playerItem, uiItem];
   }
 
   onPointerDrag(pointer) {
@@ -109,36 +135,17 @@ export default class App {
 
   updateSequence() {
     const { duration } = this.loader;
-    const { latency } = this.options;
     const { words } = this.ui.data;
     // set the sequence
     this.sequencer.setDuration(duration);
     const sequence = [];
     words.forEach((word) => {
       word.syllables.forEach((syll) => {
-        const { id, start, end, $el } = syll;
-        const playerItem = {
-          id: `player-${id}`,
-          group: id,
-          start,
-          latency,
-          task: (when, options) => {
-            this.player.play(start, end, when, options);
-          },
-        };
-        const uiItem = {
-          id: `ui-${id}`,
-          group: id,
-          start,
-          latency: 0,
-          task: (_when, _options) => {
-            $el.classList.remove('playing');
-            setTimeout(() => $el.classList.add('playing'), 1);
-          },
-        };
-        sequence.push(playerItem, uiItem);
+        const items = this.getSequenceItems(syll);
+        sequence.push(...items);
       });
     });
+
     // console.log(sequence);
     this.sequencer.setSequence(sequence);
   }

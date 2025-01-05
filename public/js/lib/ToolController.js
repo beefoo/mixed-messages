@@ -10,6 +10,7 @@ export default class ToolController {
   }
 
   init() {
+    this.app = this.options.app;
     this.sequencer = this.options.sequencer;
     this.ui = this.options.ui;
     this.player = this.options.player;
@@ -78,8 +79,13 @@ export default class ToolController {
     const syllable = this.getSyllableFromPointer(pointer);
     if (!syllable) return;
 
+    // clone the syllable in the UI
     const newSyll = this.ui.cloneSyllable(syllable);
     pointer.setTarget(newSyll.$el);
+
+    // add new syllable to sequence
+    const items = this.app.getSequenceItems(newSyll);
+    this.sequencer.add(items);
   }
 
   loudness(pointer) {

@@ -21,6 +21,13 @@ export default class Sequencer {
     this.loadListeners();
   }
 
+  add(items) {
+    items.forEach((item, i) => {
+      items[i].lastIterationPlayed = -1;
+    });
+    this.sequence.push(...items);
+  }
+
   isReady() {
     return this.sequence.length > 0;
   }
