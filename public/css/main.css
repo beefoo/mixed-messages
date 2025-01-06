@@ -19,6 +19,22 @@
   --secondary-darkest: #755c00;
 }
 
+@keyframes disappear {
+  from {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes highlight {
   from {
     transform: scale3d(1, 1, 1);
@@ -212,6 +228,10 @@ button.syll {
 }
 .syll.trimmed .trim-line {
   display: block;
+}
+.syll.disappear {
+  animation: disappear 0.5s;
+  animation-fill-mode: both;
 }
 
 .tool-list button {

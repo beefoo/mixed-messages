@@ -49,6 +49,12 @@ export default class Sequencer {
     this.startedAt = this.ctx.currentTime;
   }
 
+  removeGroup(groupName) {
+    this.sequence = this.sequence.filter(
+      (step) => !('group' in step && step.group === groupName),
+    );
+  }
+
   resetSequence() {
     this.sequence.forEach((_step, i) => {
       this.sequence[i].lastIterationPlayed = -1;

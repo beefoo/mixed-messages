@@ -70,6 +70,24 @@ export default class ToolController {
     });
   }
 
+  deleteOnce(pointer) {
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // remove the element from the UI
+    const { $el, wordIndex, index } = syllable;
+    const i = wordIndex;
+    const j = index;
+    this.ui.data.words[i].syllables[j].deleted = true;
+    // animate out
+    $el.classList.add('disappear');
+    setTimeout(() => $el.remove(), 500);
+
+    // remove from sequence
+    this.sequencer.removeGroup(syllable.id);
+  }
+
   duplicate(pointer) {
     this.move(pointer);
   }
