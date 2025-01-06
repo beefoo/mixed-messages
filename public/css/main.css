@@ -179,12 +179,12 @@ button.syll {
 .syll .char path {
   fill: var(--base-lightest);
 }
-.syll.selected .char path,
+.syll.active .char path,
 .syll:hover .char path,
 .syll:focus-visible .char path {
   fill: var(--secondary-light);
 }
-.syll.selected,
+.syll.active,
 .syll:focus-visible {
   outline: none;
   border-color: var(--secondary-light);
@@ -207,7 +207,7 @@ button.syll {
   top: 0;
   right: 0;
 }
-.syll.selected .trim-line {
+.syll.active .trim-line {
   border-color: var(--primary-lighter);
 }
 .syll.trimmed .trim-line {

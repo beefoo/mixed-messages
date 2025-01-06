@@ -97,10 +97,11 @@ export default class App {
     const { selectedTool } = this.tools;
     const property = `${selectedTool}End`;
     if (property in this.controller) this.controller[property](pointer);
+    if (pointer.$target) pointer.$target.classList.remove('active');
   }
 
   onPointerStart(pointer) {
-    if (pointer.$target) this.ui.selectSyllableByFromEl(pointer.$target);
+    if (pointer.$target) pointer.$target.classList.add('active');
     this.ui.refreshBBox();
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Start`;
@@ -111,6 +112,7 @@ export default class App {
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Once`;
     if (property in this.controller) this.controller[property](pointer);
+    if (pointer.$target) pointer.$target.classList.remove('active');
   }
 
   async onSelectAudio(item) {

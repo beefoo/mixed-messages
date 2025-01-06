@@ -116,15 +116,4 @@ export default class TextInterface {
     });
     this.$el.innerHTML = html;
   }
-
-  selectSyllableByFromEl($el) {
-    const selectedSyll = this.getSyllableFromEl($el);
-    this.data.words.forEach((word, i) => {
-      word.syllables.forEach((syllable, j) => {
-        const { $el } = syllable;
-        if (selectedSyll.id == syllable.id) $el.classList.add('selected');
-        else $el.classList.remove('selected');
-      });
-    });
-  }
 }
