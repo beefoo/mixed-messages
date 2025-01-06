@@ -153,7 +153,7 @@ button.syll {
   box-sizing: border-box;
   border: 2px dotted transparent;
 }
-button.syll.animating {
+.syll.animating {
   transition:
     top 0.5s ease-in-out,
     left 0.5s ease-in-out;
@@ -196,6 +196,22 @@ button.syll.animating {
 .syll.playing .char .char-ghost {
   animation: highlight 0.3s ease-in-out;
   animation-fill-mode: none;
+}
+.syll .trim-line {
+  display: none;
+  content: ' ';
+  position: absolute;
+  width: 0;
+  border-left: 3px dotted var(--base-lightest);
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.syll.selected .trim-line {
+  border-color: var(--primary-lighter);
+}
+.syll.trimmed .trim-line {
+  display: block;
 }
 
 .tool-list button {

@@ -20,7 +20,9 @@ export default class TextInterface {
 
   cloneSyllable(syll) {
     const { wordIndex } = syll;
-    const newSyll = structuredClone(CollectionHelper.objectOmit(syll, ['$el']));
+    const newSyll = structuredClone(
+      CollectionHelper.objectOmit(syll, ['$el', '$trimLine']),
+    );
     const $newEl = syll.$el.cloneNode(true);
     this.$el.append($newEl);
     const newIndex = this.data.words[wordIndex].syllables.length;
@@ -28,6 +30,7 @@ export default class TextInterface {
     $newEl.id = newSyll.id;
     $newEl.setAttribute('data-syll', newIndex);
     newSyll.$el = $newEl;
+    newSyll.$trimLine = $newEl.querySelector('.trim-line');
     newSyll.index = newIndex;
     this.data.words[wordIndex].syllables.push(newSyll);
     return newSyll;
@@ -73,7 +76,9 @@ export default class TextInterface {
     // keep track of HTML elements
     data.words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
-        data.words[i].syllables[j].$el = document.getElementById(syll.id);
+        const $el = document.getElementById(syll.id);
+        data.words[i].syllables[j].$el = $el;
+        data.words[i].syllables[j].$trimLine = $el.querySelector('.trim-line');
       });
     });
     this.data = data;
@@ -105,6 +110,7 @@ export default class TextInterface {
           html += `  <div class="char-image">${letterData.html}</div>`;
           html += '</div>';
         });
+        html += ' <div class="trim-line"></div>';
         html += '</button>';
       });
     });

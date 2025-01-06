@@ -275,7 +275,7 @@ export default class ToolController {
     // get delta movement in percentage of syllable width
     const { bbox } = this.ui;
     const { delta } = pointer;
-    const { trim, width, $el, wordIndex, index } = syllable;
+    const { trim, width, $el, wordIndex, index, $trimLine } = syllable;
     if (!delta) return;
     let nx = -(delta.x / bbox.width) * (100 / width) * 100;
 
@@ -285,8 +285,11 @@ export default class ToolController {
     const minTrim = 0;
     const maxTrim = 80;
     const trimAmount = MathHelper.clamp(trim + nx, minTrim, maxTrim);
-    $el.style.clipPath = `inset(0 ${trimAmount}% 0 0)`;
+    $el.style.clipPath = `inset(-100% ${trimAmount}% -100% -100%)`;
     this.ui.data.words[i].syllables[j].trim = trimAmount;
+    if (trimAmount <= minTrim) $el.classList.remove('trimmed');
+    else $el.classList.add('trimmed');
+    $trimLine.style.right = `${trimAmount}%`;
 
     // update the syllable in the sequencer
     const { sequencer } = this;
