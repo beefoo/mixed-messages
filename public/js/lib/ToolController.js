@@ -74,6 +74,38 @@ export default class ToolController {
     this.move(pointer);
   }
 
+  duplicateEnd(pointer) {
+    // if pointer has not moved, artificially move the duplicated syllable randomly
+    if (pointer.hasMoved()) return;
+
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // define move range in pixels
+    const { bbox } = this.ui;
+    const minMoveX = bbox.width * 0.05;
+    const maxMoveX = bbox.width * 0.2;
+    const minMoveY = bbox.height * 0.5;
+    const maxMoveY = bbox.height * 2.0;
+    const moveX = MathHelper.randomBetween(minMoveX, maxMoveX);
+    const moveY = MathHelper.randomBetween(minMoveY, maxMoveY);
+    const directionX = Math.random() > 0.5 ? 1 : -1;
+    const directionY = Math.random() > 0.5 ? 1 : -1;
+
+    // move and animate
+    const animate = 500;
+    pointer.delta = {
+      x: moveX * directionX,
+      y: moveY * directionY,
+    };
+    this.move(pointer, animate);
+  }
+
+  duplicateOnce(pointer) {
+    this.duplicateEnd(pointer);
+  }
+
   duplicateStart(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
@@ -128,7 +160,7 @@ export default class ToolController {
     });
   }
 
-  move(pointer) {
+  move(pointer, animate = 0) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
     if (!syllable) return;
@@ -150,6 +182,14 @@ export default class ToolController {
     const newLeft = left + nx;
     const adjustedLeft = isFlipped ? newLeft + width : newLeft;
     const newTop = MathHelper.clamp(top + ny, minY, maxY);
+
+    // animate the movement if necessary
+    if (animate > 0) {
+      $el.classList.add('animating');
+      setTimeout(() => {
+        $el.classList.remove('animating');
+      }, animate);
+    }
     $el.style.left = `${adjustedLeft}%`;
     $el.style.top = `${newTop}%`;
     this.ui.data.words[i].syllables[j].left = newLeft;

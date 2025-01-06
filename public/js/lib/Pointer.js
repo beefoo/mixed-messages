@@ -46,6 +46,12 @@ export default class Pointer {
     };
   }
 
+  hasMoved(threshold = 1) {
+    if (!this.deltaFromStart) return false;
+    const { x, y } = this.deltaFromStart;
+    return Math.abs(x) > threshold || Math.abs(y) > threshold;
+  }
+
   onMove(event) {
     // assume any movement is a drag
     if (this.gesture !== 'drag') this.gesture = 'drag';

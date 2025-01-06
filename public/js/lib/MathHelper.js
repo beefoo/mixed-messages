@@ -59,6 +59,10 @@ export default class MathHelper {
     return Math.atan2(dy, dx);
   }
 
+  static randomBetween(minValue, maxValue) {
+    return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+  }
+
   static round(value, precision) {
     return Number(value).toFixed(precision);
   }
