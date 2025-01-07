@@ -21,7 +21,7 @@ export default class App {
 
   init() {
     const { options } = this;
-    this.el = document.getElementById(options.el);
+    this.$el = document.getElementById(options.el);
     this.ctx = new AudioContext();
     this.selector = new AudioSelector({
       onSelect: (item) => this.onSelectAudio(item),
@@ -36,7 +36,9 @@ export default class App {
     this.sequencer = new Sequencer({
       audioContext: this.ctx,
     });
-    this.tools = new ToolSelector();
+    this.tools = new ToolSelector({
+      onSelect: (tool) => this.onSelectTool(tool),
+    });
     this.pointers = new PointerManager({
       childSelector: '.syll',
       onDrag: (pointer) => {
@@ -128,6 +130,10 @@ export default class App {
     this.player.setBuffer(this.loader.buf);
     this.updateSequence();
     console.log(`Audio and data loaded for ${item.id}`);
+  }
+
+  onSelectTool(tool) {
+    this.$el.setAttribute('data-tool', tool);
   }
 
   update() {
