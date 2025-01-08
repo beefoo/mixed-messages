@@ -251,15 +251,17 @@ export default class ToolController {
     const j = index;
     const minWidth = originalRect.width * scaleRange[0];
     const maxWidth = originalRect.width * scaleRange[1];
-    let newWidth = MathHelper.clamp(width + dx, minWidth, maxWidth);
-    if (newWidth >= 0 && newWidth < 1.0) newWidth = 1.0;
-    else if (newWidth < 0 && newWidth > -1.0) newWidth = -1.0;
+    const newWidth = MathHelper.clamp(width + dx, minWidth, maxWidth);
+    // ensure visible width is not zero
+    let visibleWidth = newWidth;
+    if (visibleWidth >= 0 && visibleWidth < 1.0) visibleWidth = 1.0;
+    else if (visibleWidth < 0 && visibleWidth > -1.0) visibleWidth = -1.0;
     const isFlipped = newWidth < 0;
     const adjustedLeft = isFlipped ? left + newWidth : left;
     if (isFlipped) $el.classList.add('flip-x');
     else $el.classList.remove('flip-x');
     $el.style.left = `${adjustedLeft}%`;
-    $el.style.width = `${Math.abs(newWidth)}%`;
+    $el.style.width = `${Math.abs(visibleWidth)}%`;
     this.ui.data.words[i].syllables[j].width = newWidth;
 
     // update the syllable in the sequencer
@@ -276,7 +278,7 @@ export default class ToolController {
     const scale = MathHelper.lerp(
       scaleRange[0],
       scaleRange[1],
-      MathHelper.norm(newWidth, minWidth, maxWidth),
+      MathHelper.norm(visibleWidth, minWidth, maxWidth),
     );
     const playbackRate = 1.0 / Math.abs(scale);
     sequence.forEach((item, index) => {
@@ -286,6 +288,11 @@ export default class ToolController {
         this.sequencer.sequence[index].playbackRate = playbackRate;
       }
     });
+  }
+
+  pitchEnd(pointer) {
+    if (newWidth >= 0 && newWidth < 1.0) newWidth = 1.0;
+    else if (newWidth < 0 && newWidth > -1.0) newWidth = -1.0;
   }
 
   trim(pointer) {

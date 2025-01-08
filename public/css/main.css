@@ -190,8 +190,8 @@ button.syll {
 .app[data-tool='delete'] .text-wrapper {
   cursor: pointer;
 }
-.app[data-tool='magic'] button.syll,
-.app[data-tool='magic'] .text-wrapper {
+.app[data-tool='shuffle'] button.syll,
+.app[data-tool='shuffle'] .text-wrapper {
   cursor: default;
 }
 .syll.animating {
