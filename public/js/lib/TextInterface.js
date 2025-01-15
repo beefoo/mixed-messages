@@ -33,6 +33,14 @@ export default class TextInterface {
     newSyll.$trimLine = $newEl.querySelector('.trim-line');
     newSyll.index = newIndex;
     this.data.words[wordIndex].syllables.push(newSyll);
+    // update order
+    let order = 0;
+    this.data.words.forEach((word, i) => {
+      word.syllables.forEach((_syll, j) => {
+        this.data.words[i].syllables[j].order = order;
+        order += 1;
+      });
+    });
     return newSyll;
   }
 
@@ -43,12 +51,22 @@ export default class TextInterface {
     return this.data.words[wordIndex].syllables[syllableIndex];
   }
 
+  getSyllablesWhere(condition) {
+    const all_matches = [];
+    this.data.words.forEach((word) => {
+      const matches = word.syllables.filter((syll) => condition(syll));
+      all_matches.push(...matches);
+    });
+    return all_matches;
+  }
+
   async loadFromURL(url) {
     const response = await fetch(url);
     const data = await response.json();
     const totalDur = data.words[data.words.length - 1].end;
 
     // add syllable data
+    let order = 0;
     data.words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
         const { start, end } = syll;
@@ -63,12 +81,14 @@ export default class TextInterface {
           duration,
           wordIndex: i,
           index: j,
+          order,
           id: `syll-${i}-${j}`,
           trim: 0,
           bass: 0,
           originalRect: structuredClone(rectData),
         };
         data.words[i].syllables[j] = Object.assign(syll, syllData, rectData);
+        order += 1;
       });
     });
 

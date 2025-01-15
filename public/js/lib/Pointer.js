@@ -79,7 +79,7 @@ export default class Pointer {
     // check to see if it is primary pointer
     if (event && event.originalEvent) {
       this.isPrimary = event.originalEvent.isPrimary;
-    }
+    } else if (event.isPrimary) this.isPrimary = event.isPrimary;
 
     // check to see if there's a child selector
     const { childSelector } = this.options;

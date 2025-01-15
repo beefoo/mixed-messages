@@ -16,12 +16,6 @@ export default class ToolController {
     this.player = this.options.player;
   }
 
-  getSyllableFromPointer(pointer) {
-    const syllable = this.ui.getSyllableFromEl(pointer.$target);
-    if (!syllable) return false;
-    return syllable;
-  }
-
   bass(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
@@ -141,6 +135,12 @@ export default class ToolController {
     this.sequencer.add(items);
   }
 
+  getSyllableFromPointer(pointer) {
+    const syllable = this.ui.getSyllableFromEl(pointer.$target);
+    if (!syllable) return false;
+    return syllable;
+  }
+
   loudness(pointer) {
     // retrieve the syllable from the pointer
     const syllable = this.getSyllableFromPointer(pointer);
@@ -198,11 +198,9 @@ export default class ToolController {
     const i = wordIndex;
     const j = index;
     const isFlipped = width < 0;
-    const minY = -200;
-    const maxY = 200;
     const newLeft = left + nx;
     const adjustedLeft = isFlipped ? newLeft + width : newLeft;
-    const newTop = MathHelper.clamp(top + ny, minY, maxY);
+    const newTop = top + ny;
 
     // animate the movement if necessary
     if (animate > 0) {
@@ -290,9 +288,32 @@ export default class ToolController {
     });
   }
 
-  pitchEnd(pointer) {
-    if (newWidth >= 0 && newWidth < 1.0) newWidth = 1.0;
-    else if (newWidth < 0 && newWidth > -1.0) newWidth = -1.0;
+  shuffle(pointer) {
+    if (!pointer.isPrimary) return;
+    this.move(pointer);
+
+    // retrieve the syllable from the pointer
+    const syllable = this.getSyllableFromPointer(pointer);
+    if (!syllable) return;
+
+    // get the delta from the main pointer
+    const { delta } = pointer;
+    if (!delta) return;
+
+    // move all the syllables around this one
+    const sylls = this.ui.getSyllablesWhere((syll) => syll.id !== syllable.id);
+    sylls.forEach((syll) => {
+      const syllDelta = structuredClone(delta);
+      if (syll.order % 2 !== syllable.order % 2) {
+        syllDelta.x = -syllDelta.x;
+        syllDelta.y = -syllDelta.y;
+      }
+      const pointer = {
+        $target: syll.$el,
+        delta: syllDelta,
+      };
+      this.move(pointer);
+    });
   }
 
   trim(pointer) {
