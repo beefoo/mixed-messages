@@ -159,11 +159,14 @@ p {
   -webkit-user-drag: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: move;
+  position: relative;
 }
 .text {
-  height: 100px;
-  width: 95%;
-  position: relative;
+  top: 0;
+  right: 6px;
+  bottom: 6px;
+  left: 6px;
+  position: absolute;
 }
 button.syll {
   border: none;

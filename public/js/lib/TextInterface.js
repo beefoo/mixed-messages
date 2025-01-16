@@ -64,6 +64,8 @@ export default class TextInterface {
     const response = await fetch(url);
     const data = await response.json();
     const totalDur = data.words[data.words.length - 1].end;
+    const height = 15;
+    const top = (100 - height) * 0.5;
 
     // add syllable data
     let order = 0;
@@ -72,10 +74,10 @@ export default class TextInterface {
         const { start, end } = syll;
         const duration = end - start;
         const rectData = {
-          top: 0,
+          top,
           left: (start / totalDur) * 100,
           width: (duration / totalDur) * 100,
-          height: 100,
+          height,
         };
         const syllData = {
           duration,
@@ -116,11 +118,11 @@ export default class TextInterface {
     let html = '';
     words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
-        const { displayText, duration, left, width } = syll;
+        const { displayText, duration, top, left, width, height } = syll;
         if (duration <= 0) return;
         const chars = displayText.split('');
         const charWidth = (1.0 / chars.length) * 100;
-        html += `<button id="${syll.id}" class="syll" data-word="${i}" data-syll="${j}" style="left: ${left}%; width: ${width}%">`;
+        html += `<button id="${syll.id}" class="syll" data-word="${i}" data-syll="${j}" style="top: ${top}%; left: ${left}%; width: ${width}%; height: ${height}%">`;
         chars.forEach((char, k) => {
           const letterData = this.alpha.get(char);
           if (!letterData) return;
