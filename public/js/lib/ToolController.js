@@ -201,10 +201,6 @@ export default class ToolController {
     const newSyll = this.ui.cloneSyllable(syllable);
     pointer.setTarget(newSyll.$el);
 
-    // deselect old syllable
-    syllable.$el.classList.remove('active');
-    syllable.$wrapper.classList.remove('active');
-
     // add new syllable to sequence
     const items = this.app.getSequenceItems(newSyll);
     this.sequencer.add(items);

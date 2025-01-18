@@ -18,7 +18,7 @@ export default class TextInterface {
     this.refreshBBox();
   }
 
-  activateSyllableFromPointer(pointer, activate = true) {
+  activateSyllableFromPointer(pointer, activate = true, className = 'active') {
     if (!pointer.$target) return;
     // we need to (de)activate both the main target and its wrapper
     const { $target } = pointer;
@@ -34,8 +34,27 @@ export default class TextInterface {
     }
     const $els = [$primary, $wrapper];
     $els.forEach(($el) => {
-      if (activate) $el.classList.add('active');
-      else $el.classList.remove('active');
+      if (activate) $el.classList.add(className);
+      else $el.classList.remove(className);
+    });
+  }
+
+  addListenersToSyll(syll) {
+    const { $el, $wrapper } = syll;
+    const $els = [$el, $wrapper];
+    $els.forEach(($e) => {
+      $e.onblur = (_event) => {
+        this.activateSyllableFromPointer({ $target: $e }, false);
+      };
+      $e.onfocus = (_event) => {
+        this.activateSyllableFromPointer({ $target: $e });
+      };
+      $e.onmouseover = (_event) => {
+        this.activateSyllableFromPointer({ $target: $e }, true, 'hover');
+      };
+      $e.onmouseout = (_event) => {
+        this.activateSyllableFromPointer({ $target: $e }, false, 'hover');
+      };
     });
   }
 
@@ -58,6 +77,7 @@ export default class TextInterface {
     newSyll.$wrapper = $newWrapper;
     newSyll.index = newIndex;
     this.data.words[wordIndex].syllables.push(newSyll);
+    this.addListenersToSyll(newSyll);
     // update order
     let order = 0;
     this.data.words.forEach((word, i) => {
@@ -66,6 +86,10 @@ export default class TextInterface {
         order += 1;
       });
     });
+    setTimeout(() => {
+      this.activateSyllableFromPointer({ $target: syll.$el }, false);
+    }, 10);
+
     return newSyll;
   }
 
@@ -160,6 +184,7 @@ export default class TextInterface {
         const $wrapper = document.getElementById(`${syll.id}-wrapper`);
         data.words[i].syllables[j].$el = $el;
         data.words[i].syllables[j].$wrapper = $wrapper;
+        this.addListenersToSyll(syll);
       });
     });
     this.data = data;

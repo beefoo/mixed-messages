@@ -229,6 +229,7 @@ button.syll.wrapper.visible {
 }
 .syll.active .char path,
 .syll:hover .char path,
+.syll.hover .char path,
 .syll:focus-visible .char path {
   fill: var(--secondary-light);
 }
