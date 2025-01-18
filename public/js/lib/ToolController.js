@@ -127,7 +127,7 @@ export default class ToolController {
     if (isPartialY)
       wrapperTop = wrapperTop < 0 ? wrapperTop + 100 : wrapperTop - 100;
     if (isPartialX)
-      wrapperLeft = wrapperLeft < 0 ? newLeft + 100 : newLeft - 100;
+      wrapperLeft = wrapperLeft < 0 ? wrapperLeft + 100 : wrapperLeft - 100;
     $wrapper.style.top = `${wrapperTop}%`;
     $wrapper.style.left = `${wrapperLeft}%`;
 
