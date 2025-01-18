@@ -66,7 +66,7 @@ export default class App {
 
   getSequenceItems(syll) {
     const { latency } = this.options;
-    const { id, start, end, $el } = syll;
+    const { id, start, end, $el, $wrapper } = syll;
     const playerItem = {
       id: `player-${id}`,
       group: id,
@@ -83,7 +83,9 @@ export default class App {
       latency: 0,
       task: (_when, _options) => {
         $el.classList.remove('playing');
+        $wrapper.classList.remove('playing');
         setTimeout(() => $el.classList.add('playing'), 1);
+        setTimeout(() => $wrapper.classList.add('playing'), 1);
       },
     };
     return [playerItem, uiItem];
@@ -99,11 +101,11 @@ export default class App {
     const { selectedTool } = this.tools;
     const property = `${selectedTool}End`;
     if (property in this.controller) this.controller[property](pointer);
-    if (pointer.$target) pointer.$target.classList.remove('active');
+    this.ui.activateSyllableFromPointer(pointer, false);
   }
 
   onPointerStart(pointer) {
-    if (pointer.$target) pointer.$target.classList.add('active');
+    this.ui.activateSyllableFromPointer(pointer);
     this.ui.refreshBBox();
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Start`;
@@ -114,7 +116,7 @@ export default class App {
     const { selectedTool } = this.tools;
     const property = `${selectedTool}Once`;
     if (property in this.controller) this.controller[property](pointer);
-    if (pointer.$target) pointer.$target.classList.remove('active');
+    this.ui.activateSyllableFromPointer(pointer, false);
   }
 
   async onSelectAudio(item) {

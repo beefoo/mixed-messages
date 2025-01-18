@@ -177,6 +177,12 @@ button.syll {
   border: 2px dotted transparent;
   cursor: move;
 }
+button.syll.wrapper {
+  display: none;
+}
+button.syll.wrapper.visible {
+  display: block;
+}
 .app[data-tool='pitch'] button.syll,
 .app[data-tool='pitch'] .text-wrapper,
 .app[data-tool='trim'] button.syll,

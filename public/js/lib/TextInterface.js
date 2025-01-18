@@ -18,19 +18,44 @@ export default class TextInterface {
     this.refreshBBox();
   }
 
+  activateSyllableFromPointer(pointer, activate = true) {
+    if (!pointer.$target) return;
+    // we need to (de)activate both the main target and its wrapper
+    const { $target } = pointer;
+    let $primary = false;
+    let $wrapper = false;
+    if ($target.classList.contains('wrapper')) {
+      $wrapper = $target;
+      const newLength = $wrapper.id.length - '-wrapper'.length;
+      $primary = document.getElementById($wrapper.id.slice(0, newLength));
+    } else {
+      $primary = $target;
+      $wrapper = document.getElementById(`${$primary.id}-wrapper`);
+    }
+    const $els = [$primary, $wrapper];
+    $els.forEach(($el) => {
+      if (activate) $el.classList.add('active');
+      else $el.classList.remove('active');
+    });
+  }
+
   cloneSyllable(syll) {
     const { wordIndex } = syll;
     const newSyll = structuredClone(
-      CollectionHelper.objectOmit(syll, ['$el', '$trimLine']),
+      CollectionHelper.objectOmit(syll, ['$el', '$wrapper']),
     );
     const $newEl = syll.$el.cloneNode(true);
+    const $newWrapper = syll.$wrapper.cloneNode(true);
     this.$el.append($newEl);
+    this.$el.append($newWrapper);
     const newIndex = this.data.words[wordIndex].syllables.length;
     newSyll.id = `syll-${wordIndex}-${newIndex}`;
     $newEl.id = newSyll.id;
     $newEl.setAttribute('data-syll', newIndex);
+    $newWrapper.id = `${newSyll.id}-wrapper`;
+    $newWrapper.setAttribute('data-syll', newIndex);
     newSyll.$el = $newEl;
-    newSyll.$trimLine = $newEl.querySelector('.trim-line');
+    newSyll.$wrapper = $newWrapper;
     newSyll.index = newIndex;
     this.data.words[wordIndex].syllables.push(newSyll);
     // update order
@@ -49,6 +74,39 @@ export default class TextInterface {
     const wordIndex = parseInt($el.getAttribute('data-word'), 10);
     const syllableIndex = parseInt($el.getAttribute('data-syll'), 10);
     return this.data.words[wordIndex].syllables[syllableIndex];
+  }
+
+  getSyllableHTML(syll, isWrapper = false) {
+    const {
+      id,
+      wordIndex,
+      index,
+      displayText,
+      duration,
+      top,
+      left,
+      width,
+      height,
+    } = syll;
+    if (duration <= 0) return '';
+    const chars = displayText.split('');
+    const charWidth = (1.0 / chars.length) * 100;
+    const elId = isWrapper ? `${id}-wrapper` : id;
+    const className = isWrapper ? 'syll wrapper' : 'syll';
+    let html = '';
+    html += `<button id="${elId}" class="${className}" data-word="${wordIndex}" data-syll="${index}" style="top: ${top}%; left: ${left}%; width: ${width}%; height: ${height}%">`;
+    chars.forEach((char, k) => {
+      const letterData = this.alpha.get(char);
+      if (!letterData) return;
+      const charLeft = k * charWidth;
+      html += `<div class="char" style="left: ${charLeft}%; width: ${charWidth}%">`;
+      html += `  <div class="char-ghost">${letterData.html}</div>`;
+      html += `  <div class="char-image">${letterData.html}</div>`;
+      html += '</div>';
+    });
+    html += ` <div id="${elId}-trim-line" class="trim-line"></div>`;
+    html += '</button>';
+    return html;
   }
 
   getSyllablesWhere(condition) {
@@ -99,8 +157,9 @@ export default class TextInterface {
     data.words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
         const $el = document.getElementById(syll.id);
+        const $wrapper = document.getElementById(`${syll.id}-wrapper`);
         data.words[i].syllables[j].$el = $el;
-        data.words[i].syllables[j].$trimLine = $el.querySelector('.trim-line');
+        data.words[i].syllables[j].$wrapper = $wrapper;
       });
     });
     this.data = data;
@@ -114,26 +173,12 @@ export default class TextInterface {
   render(data) {
     const { words } = data;
     if (words.length < 1) return;
-    const totalDur = words[words.length - 1].end;
     let html = '';
     words.forEach((word, i) => {
       word.syllables.forEach((syll, j) => {
-        const { displayText, duration, top, left, width, height } = syll;
-        if (duration <= 0) return;
-        const chars = displayText.split('');
-        const charWidth = (1.0 / chars.length) * 100;
-        html += `<button id="${syll.id}" class="syll" data-word="${i}" data-syll="${j}" style="top: ${top}%; left: ${left}%; width: ${width}%; height: ${height}%">`;
-        chars.forEach((char, k) => {
-          const letterData = this.alpha.get(char);
-          if (!letterData) return;
-          const charLeft = k * charWidth;
-          html += `<div class="char" style="left: ${charLeft}%; width: ${charWidth}%">`;
-          html += `  <div class="char-ghost">${letterData.html}</div>`;
-          html += `  <div class="char-image">${letterData.html}</div>`;
-          html += '</div>';
-        });
-        html += ' <div class="trim-line"></div>';
-        html += '</button>';
+        const syllHTML = this.getSyllableHTML(syll);
+        const wrapperHTML = this.getSyllableHTML(syll, true);
+        html += syllHTML + wrapperHTML;
       });
     });
     this.$el.innerHTML = html;
