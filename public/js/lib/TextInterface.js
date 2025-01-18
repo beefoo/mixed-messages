@@ -117,8 +117,9 @@ export default class TextInterface {
     const charWidth = (1.0 / chars.length) * 100;
     const elId = isWrapper ? `${id}-wrapper` : id;
     const className = isWrapper ? 'syll wrapper' : 'syll';
+    const tabindex = isWrapper ? 'tabindex="-1"' : '';
     let html = '';
-    html += `<button id="${elId}" class="${className}" data-word="${wordIndex}" data-syll="${index}" style="top: ${top}%; left: ${left}%; width: ${width}%; height: ${height}%">`;
+    html += `<button id="${elId}" class="${className}" data-word="${wordIndex}" data-syll="${index}" style="top: ${top}%; left: ${left}%; width: ${width}%; height: ${height}%" ${tabindex}>`;
     chars.forEach((char, k) => {
       const letterData = this.alpha.get(char);
       if (!letterData) return;
