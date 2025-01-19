@@ -17,8 +17,8 @@
   --secondary-dark: #bc9400;
   --secondary-darker: #8e6f00;
   --secondary-darkest: #755c00;
-  --margin: 0.5vh;
-  --margin-large: 1vh;
+  --margin: 0.5vmin;
+  --margin-large: 1vmin;
 }
 
 @keyframes disappear {
@@ -127,9 +127,14 @@ p {
   margin: 0;
   padding: 0;
 }
+@media (orientation: portrait) {
+  .app {
+    flex-direction: column;
+  }
+}
 
 .ui-tools {
-  flex-basis: 12.5vh;
+  flex-basis: 12.5vmin;
   flex-grow: 0;
   flex-shrink: 0;
   display: flex;
@@ -140,6 +145,11 @@ p {
 }
 button.tool-button {
   flex-grow: 1;
+}
+@media (orientation: portrait) {
+  .ui-tools {
+    flex-direction: row;
+  }
 }
 
 .ui-main {
@@ -165,14 +175,14 @@ button.tool-button {
   position: relative;
 }
 .text {
-  top: -0.5vh;
+  top: -0.5vmin;
   right: var(--margin);
   bottom: 0;
   left: 0;
   position: absolute;
-  background: rgba(0, 0, 0, 0.667);
+  /* background: rgba(0, 0, 0, 0.667);
   border: 3px solid rgba(255, 255, 255, 0.1667);
-  border-radius: 12px;
+  border-radius: 12px; */
   overflow: hidden;
   touch-action: none;
   user-select: none;
@@ -286,14 +296,14 @@ button.syll.wrapper.visible {
   margin: 0 var(--margin) var(--margin);
 }
 button.control-button {
-  flex-basis: 8vh;
+  flex-basis: 8vmin;
   flex-grow: 0;
   flex-shrink: 0;
-  height: 8vh;
+  height: 8vmin;
 }
 button.play-button {
-  flex-basis: 12vh;
-  height: 12vh;
+  flex-basis: 12vmin;
+  height: 12vmin;
   background: var(--secondary-light);
   border-color: var(--secondary-light);
 }
@@ -309,6 +319,21 @@ button.play-button {
 .source-label,
 .source-description {
   white-space: nowrap;
+}
+@media (max-width: 660px) {
+  .source-form {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 540px) {
+  .source-form {
+    font-size: 0.8rem;
+  }
+  .source-label,
+  .source-description {
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 .visually-hidden {
