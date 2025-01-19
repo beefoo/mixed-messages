@@ -26,103 +26,99 @@
 
   <body>
     <div id="app" class="app">
-      <div class="ui-top">
-        <div class="ui-main">
-          <nav class="main-nav">
-            <h1><a href="/about.html" target="_blank">Mixed messages</a></h1>
-            <button>Settings</button>
-          </nav>
-          <div id="text-wrapper" class="text-wrapper">
-            <div id="text-ui" class="text"></div>
-          </div>
-        </div>
-        <div id="tools" class="ui-left">
-          <h2 class="visually-hidden">Tools</h2>
-          <ul class="tool-list">
-            <li>
-              <button
-                class="tool-button tool-button-move selected"
-                title="Move"
-                data-tool="move"
-              >
-                <span class="visually-hidden">Move</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-pitch"
-                title="Pitch"
-                data-tool="pitch"
-              >
-                <span class="visually-hidden">Pitch</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-loudness"
-                title="Loudness"
-                data-tool="loudness"
-              >
-                <span class="visually-hidden">Loudness</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-trim"
-                title="Trim"
-                data-tool="trim"
-              >
-                <span class="visually-hidden">Trim</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-bass"
-                title="Bass"
-                data-tool="bass"
-              >
-                <span class="visually-hidden">Bass</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-duplicate"
-                title="Duplicate"
-                data-tool="duplicate"
-              >
-                <span class="visually-hidden">Duplicate</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-shuffle"
-                title="Shuffle"
-                data-tool="shuffle"
-              >
-                <span class="visually-hidden">Shuffle</span>
-              </button>
-            </li>
-            <li>
-              <button
-                class="tool-button tool-button-delete"
-                title="Delete"
-                data-tool="delete"
-              >
-                <span class="visually-hidden">Delete</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="ui-bottom">
-        <button id="play-button" class="play-button" title="Toggle play">
-          <span class="visually-hidden">Toggle play</span>
+      <div id="tools" class="ui-tools">
+        <button
+          class="tool-button tool-button-move selected"
+          title="Move"
+          data-tool="move"
+        >
+          <span class="visually-hidden">Move</span>
         </button>
-        <form class="source-form">
-          <label for="source-select">Currently playing:</label>
-          <select id="source-select" class="source-select"></select>
-          <div id="item-detail" class="source-description"></div>
-        </form>
+        <button
+          class="tool-button tool-button-pitch"
+          title="Pitch"
+          data-tool="pitch"
+        >
+          <span class="visually-hidden">Pitch</span>
+        </button>
+        <button
+          class="tool-button tool-button-loudness"
+          title="Loudness"
+          data-tool="loudness"
+        >
+          <span class="visually-hidden">Loudness</span>
+        </button>
+        <button
+          class="tool-button tool-button-trim"
+          title="Trim"
+          data-tool="trim"
+        >
+          <span class="visually-hidden">Trim</span>
+        </button>
+        <button
+          class="tool-button tool-button-bass"
+          title="Bass"
+          data-tool="bass"
+        >
+          <span class="visually-hidden">Bass</span>
+        </button>
+        <button
+          class="tool-button tool-button-duplicate"
+          title="Duplicate"
+          data-tool="duplicate"
+        >
+          <span class="visually-hidden">Duplicate</span>
+        </button>
+        <button
+          class="tool-button tool-button-shuffle"
+          title="Shuffle"
+          data-tool="shuffle"
+        >
+          <span class="visually-hidden">Shuffle</span>
+        </button>
+        <button
+          class="tool-button tool-button-delete"
+          title="Delete"
+          data-tool="delete"
+        >
+          <span class="visually-hidden">Delete</span>
+        </button>
+      </div>
+      <div class="ui-main">
+        <nav class="ui-main-nav">
+          <h1>
+            <a href="/about.html" target="_blank">Mixed messages</a> by
+            <a href="https://brianfoo.com" target="_blank">Brian Foo</a>
+          </h1>
+        </nav>
+        <div id="text-wrapper" class="ui-text-wrapper">
+          <div id="text-ui" class="text"></div>
+        </div>
+        <div class="ui-controls">
+          <form class="source-form">
+            <label for="source-select" class="source-label"
+              >Currently playing:</label
+            >
+            <select id="source-select" class="source-select"></select>
+            <div id="item-detail" class="source-description"></div>
+          </form>
+          <button class="control-button control-button-reset">
+            <span class="visually-hidden">Reset</span>
+          </button>
+          <button class="control-button control-button-prev">
+            <span class="visually-hidden">Previous message</span>
+          </button>
+          <button class="control-button control-button-next">
+            <span class="visually-hidden">Next message</span>
+          </button>
+          <button
+            id="play-button"
+            class="control-button play-button"
+            title="Toggle play"
+          >
+            <span class="visually-hidden">Toggle play</span>
+          </button>
+        </div>
       </div>
     </div>
 
