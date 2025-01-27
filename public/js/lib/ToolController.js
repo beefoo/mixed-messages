@@ -25,7 +25,7 @@ export default class ToolController {
     const { bbox } = this.ui;
     const { delta } = pointer;
     if (!delta) return;
-    const dy = -delta.y / bbox.height;
+    const dy = -(delta.y / bbox.height) * 8;
 
     // calculate new bass
     const { bass, wordIndex, index, $el, $wrapper } = syllable;
