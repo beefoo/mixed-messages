@@ -169,6 +169,50 @@
     transform: scale3d(0.75, 0.75, 0.75) translate3d(0, 0, 0);
   }
 }
+@keyframes duplicate-tool {
+  0%,
+  15% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(100%, 100%, 0);
+  }
+  85%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes delete-tool {
+  0% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes delete-tool-cursor {
+  0%,
+  10% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(0, 0, 0);
+  }
+  28.333%,
+  38.333% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-420%, 0, 0);
+  }
+  61.667%,
+  71.667% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-210%, -420%, 0);
+  }
+  90%,
+  100% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(0, 0, 0);
+  }
+}
 
 html {
   font-size: 24px;
@@ -363,6 +407,39 @@ button.tool-button {
   margin-left: -12%;
   top: 15%;
   transform-origin: 50% 50%;
+}
+.duplicate-animation {
+  transform-origin: 50% 50%;
+  transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, -50%, 0);
+}
+.duplicate-animation .letter {
+  opacity: 0.5;
+}
+.duplicate-animation .dupe {
+  animation: duplicate-tool 5s infinite;
+  animation-fill-mode: both;
+  opacity: 1;
+}
+.delete-animation .letter {
+  animation: delete-tool 6s infinite;
+  animation-fill-mode: both;
+  transform-origin: 50% 50%;
+  transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, 50%, 0);
+  animation-delay: 0;
+}
+.delete-animation .letter:nth-child(2) {
+  transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, 50%, 0);
+  animation-delay: 2s;
+}
+.delete-animation .letter:nth-child(3) {
+  transform: scale3d(0.5, 0.5, 0.5) translate3d(0, -50%, 0);
+  animation-delay: 4s;
+}
+.delete-animation .cursor {
+  animation: delete-tool-cursor 6s infinite;
+  transform-origin: 50% 50%;
+  transform: scale3d(0.5, 0.5, 0.5);
+  left: 63%;
 }
 
 .ui-main {
