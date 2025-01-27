@@ -53,6 +53,68 @@
   }
 }
 
+@keyframes move-tool {
+  from {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, -50%, 0);
+  }
+  25% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, -50%, 0);
+  }
+  50% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, 50%, 0);
+  }
+  75% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, 50%, 0);
+  }
+  to {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, -50%, 0);
+  }
+}
+@keyframes pitch-tool {
+  from {
+    transform: translate3d(0, 0, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) scale3d(1, 0.5, 0.5);
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale3d(0.5, 0.5, 0.5);
+  }
+}
+@keyframes pitch-tool-cursor {
+  from {
+    transform: translate3d(-115%, -50%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  50% {
+    transform: translate3d(45%, -50%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  to {
+    transform: translate3d(-115%, -50%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+}
+@keyframes loudness-tool {
+  from {
+    transform: translate3d(0, 0, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) scale3d(0.5, 1, 0.5);
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale3d(0.5, 0.5, 0.5);
+  }
+}
+@keyframes loudness-tool-cursor {
+  from {
+    transform: translate3d(0, 115%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  50% {
+    transform: translate3d(0, -45%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+  to {
+    transform: translate3d(0, 115%, 0) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
 html {
   font-size: 24px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -152,6 +214,41 @@ button.tool-button {
   flex-grow: 1;
   position: relative;
 }
+.tool-button .animation {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: 50% 50%;
+  animation-duration: 5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+.move-animation {
+  animation-name: move-tool;
+}
+.pitch-animation .letter {
+  animation: pitch-tool 5s infinite;
+  animation-fill-mode: both;
+  transform-origin: 0 50%;
+}
+.pitch-animation .cursor {
+  transform-origin: 0 50%;
+  animation: pitch-tool-cursor 5s infinite;
+  animation-fill-mode: both;
+}
+.loudness-animation .letter {
+  animation: loudness-tool 5s infinite;
+  transform-origin: 50% 100%;
+  animation-fill-mode: both;
+}
+.loudness-animation .cursor {
+  transform-origin: 50% 100%;
+  animation: loudness-tool-cursor 5s infinite;
+  animation-fill-mode: both;
+}
 .tool-button .letter {
   width: 100%;
   height: 100%;
@@ -165,13 +262,18 @@ button.tool-button {
 }
 .tool-button .cursor {
   position: absolute;
-  width: 20%;
-  height: 20%;
+  width: 24%;
+  height: 24%;
   border-radius: 50%;
-  top: 68%;
-  left: 59%;
+  top: 67%;
+  left: 61%;
   background: var(--secondary-light);
   opacity: 0.8;
+}
+.loudness-animation .cursor {
+  left: 49%;
+  margin-left: -12%;
+  top: 15%;
 }
 
 .ui-main {
