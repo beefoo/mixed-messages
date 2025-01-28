@@ -261,11 +261,16 @@ a {
   color: var(--primary-lighter);
   font-weight: bold;
 }
+a:hover {
+  color: var(--secondary-light);
+}
 a:focus,
-button:focus {
-  outline-style: solid;
-  outline: var(--secondary-light);
-  outline-width: 3px;
+a:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: 2px solid var(--secondary-light);
 }
 
 button,
@@ -273,7 +278,7 @@ a.button {
   background: var(--primary-light);
   color: var(--base-darkest);
   border-radius: 6px;
-  border: 3px solid var(--primary-light);
+  border: 4px solid var(--primary-light);
   padding: 3px 6px;
   margin: 0;
   line-height: 1;
@@ -287,6 +292,16 @@ a.button.selected {
   color: var(--primary-lighter);
   border: 3px solid var(--primary-light);
 }
+a.button:focus,
+a.button:focus-visible,
+button:focus,
+button:focus-visible,
+a.button:hover,
+button:hover {
+  outline: none;
+  border-color: var(--secondary-light);
+}
+
 h1 {
   margin: 0;
   line-height: 1;
@@ -645,6 +660,11 @@ button.play-button {
   height: 12vmin;
   background: var(--secondary-light);
   border-color: var(--secondary-light);
+}
+button.play-button:hover,
+button.play-button:focus,
+button.play-button:focus-visible {
+  border-color: var(--primary-light);
 }
 .play-button .stop-icon {
   display: none;
