@@ -669,6 +669,12 @@ button.play-button:focus-visible {
 .play-button .stop-icon {
   display: none;
 }
+.play-button.playing .stop-icon {
+  display: block;
+}
+.play-button.playing .play-icon {
+  display: none;
+}
 .source-form {
   flex-grow: 1;
   display: flex;
