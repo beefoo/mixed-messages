@@ -195,6 +195,39 @@
     opacity: 1;
   }
 }
+@keyframes shuffle-tool {
+  0% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, -50%, 0);
+  }
+  50% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, -50%, 0);
+  }
+  100% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, -50%, 0);
+  }
+}
+@keyframes shuffle-tool2 {
+  0% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, 0, 0);
+  }
+  50% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, 0, 0);
+  }
+}
+@keyframes shuffle-tool3 {
+  0% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, 50%, 0);
+  }
+  50% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(50%, 50%, 0);
+  }
+  100% {
+    transform: scale3d(0.5, 0.5, 0.5) translate3d(-50%, 50%, 0);
+  }
+}
 @keyframes delete-tool-cursor {
   0%,
   10% {
@@ -419,6 +452,19 @@ button.tool-button {
   animation: duplicate-tool 5s infinite;
   animation-fill-mode: both;
   opacity: 1;
+}
+.shuffle-animation .letter {
+  animation: shuffle-tool 5s infinite;
+  animation-fill-mode: both;
+  transform-origin: 50% 50%;
+}
+.shuffle-animation .letter:nth-child(2) {
+  animation: shuffle-tool2 5s infinite;
+  animation-fill-mode: both;
+}
+.shuffle-animation .letter:nth-child(3) {
+  animation: shuffle-tool3 5s infinite;
+  animation-fill-mode: both;
 }
 .delete-animation .letter {
   animation: delete-tool 6s infinite;
