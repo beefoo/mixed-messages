@@ -635,11 +635,19 @@ button.control-button {
   flex-shrink: 0;
   height: 8vmin;
 }
+.control-button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 button.play-button {
   flex-basis: 12vmin;
   height: 12vmin;
   background: var(--secondary-light);
   border-color: var(--secondary-light);
+}
+.play-button .stop-icon {
+  display: none;
 }
 .source-form {
   flex-grow: 1;
