@@ -1,0 +1,134 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.876531 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.876531 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.226 
+            text = "wake" 
+        intervals [2]:
+            xmin = 0.226 
+            xmax = 0.396 
+            text = "up" 
+        intervals [3]:
+            xmin = 0.396 
+            xmax = 1.016 
+            text = "america" 
+        intervals [4]:
+            xmin = 1.016 
+            xmax = 1.087 
+            text = "" 
+        intervals [5]:
+            xmin = 1.087 
+            xmax = 1.351 
+            text = "wake" 
+        intervals [6]:
+            xmin = 1.351 
+            xmax = 1.776 
+            text = "up" 
+        intervals [7]:
+            xmin = 1.776 
+            xmax = 1.876531 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.876531 
+        intervals: size = 19 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.046 
+            text = "W" 
+        intervals [2]:
+            xmin = 0.046 
+            xmax = 0.174 
+            text = "EY1" 
+        intervals [3]:
+            xmin = 0.174 
+            xmax = 0.226 
+            text = "K" 
+        intervals [4]:
+            xmin = 0.226 
+            xmax = 0.364 
+            text = "AH1" 
+        intervals [5]:
+            xmin = 0.364 
+            xmax = 0.396 
+            text = "P" 
+        intervals [6]:
+            xmin = 0.396 
+            xmax = 0.554 
+            text = "AH0" 
+        intervals [7]:
+            xmin = 0.554 
+            xmax = 0.556 
+            text = "M" 
+        intervals [8]:
+            xmin = 0.556 
+            xmax = 0.714 
+            text = "EH1" 
+        intervals [9]:
+            xmin = 0.714 
+            xmax = 0.716 
+            text = "R" 
+        intervals [10]:
+            xmin = 0.716 
+            xmax = 0.774 
+            text = "AH0" 
+        intervals [11]:
+            xmin = 0.774 
+            xmax = 0.776 
+            text = "K" 
+        intervals [12]:
+            xmin = 0.776 
+            xmax = 1.016 
+            text = "AH0" 
+        intervals [13]:
+            xmin = 1.016 
+            xmax = 1.087 
+            text = "" 
+        intervals [14]:
+            xmin = 1.087 
+            xmax = 1.126 
+            text = "W" 
+        intervals [15]:
+            xmin = 1.126 
+            xmax = 1.343 
+            text = "EY1" 
+        intervals [16]:
+            xmin = 1.343 
+            xmax = 1.351 
+            text = "K" 
+        intervals [17]:
+            xmin = 1.351 
+            xmax = 1.554 
+            text = "AH1" 
+        intervals [18]:
+            xmin = 1.554 
+            xmax = 1.776 
+            text = "P" 
+        intervals [19]:
+            xmin = 1.776 
+            xmax = 1.876531 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 1.876531 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 1.876531 
+            text = "Wake up America, wake up" 

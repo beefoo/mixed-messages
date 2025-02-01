@@ -20,9 +20,27 @@ function processQueue(files) {
     fs.copyFileSync(srcFilename, destFilename);
   });
   // run alignment
-  const args = ['align', '--fine_tune', '--clean', '--include_original_text', '--overwrite', audioTargetDir, 'english_us_arpa', 'english_us_arpa', alignedTargetDir];
-  console.log(`Running: mfa ${args.join(' ')}`);
-  spawnSync('mfa', args);
+
+  // const args = ['align', '--fine_tune', '--clean', '--include_original_text', '--overwrite', audioTargetDir, 'english_us_arpa', 'english_us_arpa', alignedTargetDir];
+  // console.log(`Running: mfa ${args.join(' ')}`);
+  // spawnSync('mfa', args);
+  const args = [
+    'run',
+    '-n',
+    'aligner',
+    'mfa',
+    'align',
+    '--fine_tune',
+    '--clean',
+    '--include_original_text',
+    '--overwrite',
+    audioTargetDir,
+    'english_us_arpa',
+    'english_us_arpa',
+    alignedTargetDir,
+  ];
+  console.log(`Running: mamba ${args.join(' ')}`);
+  spawnSync('mamba', args);
   if (argv.debug) return;
   // move synced files over
   const alignedFiles = fs.readdirSync(alignedTargetDir);
@@ -38,7 +56,10 @@ function processQueue(files) {
   console.log(`Moved ${count} aligned files to ${config.textgridDirectoryIn}`);
   count = 0;
   files.forEach((srcFilename) => {
-    const destFilename = path.join(config.audioDirectoryIn, path.basename(srcFilename));
+    const destFilename = path.join(
+      config.audioDirectoryIn,
+      path.basename(srcFilename),
+    );
     if (!fs.existsSync(destFilename) || argv.overwrite) {
       fs.copyFileSync(srcFilename, destFilename);
       count += 1;
@@ -51,7 +72,9 @@ function processQueue(files) {
 
 function main() {
   const files = fs.readdirSync(config.audioDirectoryQueue);
-  const audioFiles = files.filter((file) => path.extname(file).toLowerCase() === '.wav');
+  const audioFiles = files.filter(
+    (file) => path.extname(file).toLowerCase() === '.wav',
+  );
   const queue = [];
   audioFiles.forEach((audioFilename) => {
     const audioPath = path.join(config.audioDirectoryQueue, audioFilename);

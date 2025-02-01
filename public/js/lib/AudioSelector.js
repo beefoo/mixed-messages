@@ -32,6 +32,11 @@ export default class AudioSelector {
     this.index = 0;
     this.loadUI(this.index);
     this.select(this.index);
+    this.loadListeners();
+  }
+
+  loadListeners() {
+    this.$selector.onchange = (_event) => this.onSelect();
   }
 
   loadUI(selectedIndex = 0) {
@@ -43,9 +48,14 @@ export default class AudioSelector {
     this.$selector.innerHTML = html;
   }
 
+  onSelect() {
+    const index = parseInt(this.$selector.value, 10);
+    this.select(index);
+  }
+
   select(index) {
     const item = this.items[index];
-    const html = `by ${item.speakers} via <a href="${item.url}" target="_blank">${item.source}</a>`;
+    const html = `by <a href="${item.url}" target="_blank">${item.speakers}</a>`;
     this.$item.innerHTML = html;
     this.options.onSelect(item);
   }

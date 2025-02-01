@@ -492,7 +492,7 @@ utils.readCSV(fs, csv, config.metadataFile, (rows) => {
   items = parseItems(items);
   items = alignPhones(items);
   items = alignSyllables(items);
-  items = mapPhones(items, config.arpabet);
+  // items = mapPhones(items, config.arpabet);
   console.log('Analyzing audio...');
   items = analyzeAudio(items);
   if (argv.validate) return;
