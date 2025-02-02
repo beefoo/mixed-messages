@@ -1,3 +1,4 @@
+import CollectionHelper from './CollectionHelper.js';
 import MathHelper from './MathHelper.js';
 
 export default class ToolController {
@@ -201,8 +202,25 @@ export default class ToolController {
     const newSyll = this.ui.cloneSyllable(syllable);
     pointer.setTarget(newSyll.$el);
 
+    // get existing sequence item's audio properties
+    const { sequence } = this.sequencer;
+    const foundItem = sequence.find((item) => item.group === syllable.id);
+    let audioOptions = {};
+    if (foundItem) {
+      const audioProperties = [
+        'bass',
+        'playbackRate',
+        'reverse',
+        'start',
+        'treble',
+        'trim',
+        'volume',
+      ];
+      audioOptions = CollectionHelper.pluck(foundItem, audioProperties);
+    }
+
     // add new syllable to sequence
-    const items = this.app.getSequenceItems(newSyll);
+    const items = this.app.getSequenceItems(newSyll, audioOptions);
     this.sequencer.add(items);
   }
 

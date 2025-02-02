@@ -64,7 +64,7 @@ export default class App {
     this.update();
   }
 
-  getSequenceItems(syll) {
+  getSequenceItems(syll, audioOptions = {}) {
     const { latency } = this.options;
     const { id, start, end, $el, $wrapper } = syll;
     const playerItem = {
@@ -88,7 +88,10 @@ export default class App {
         setTimeout(() => $wrapper.classList.add('playing'), 1);
       },
     };
-    return [playerItem, uiItem];
+    return [
+      Object.assign({}, playerItem, audioOptions),
+      Object.assign({}, uiItem, audioOptions),
+    ];
   }
 
   onPointerDrag(pointer) {
