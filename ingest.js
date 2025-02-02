@@ -446,10 +446,10 @@ function writeDataFiles(items) {
       const updatedWord = _.clone(word);
       updatedWord.syllables = word.syllables.map((syllable) => {
         const updatedSyllable = _.clone(syllable);
-        updatedSyllable.phones = syllable.phones.map((phone) =>
-          _.omit(phone, 'features'),
-        );
-        return updatedSyllable;
+        // updatedSyllable.phones = syllable.phones.map((phone) =>
+        //   _.omit(phone, 'features'),
+        // );
+        return _.omit(updatedSyllable, 'phones');
       });
       return updatedWord;
     });
@@ -492,7 +492,7 @@ utils.readCSV(fs, csv, config.metadataFile, (rows) => {
   items = parseItems(items);
   items = alignPhones(items);
   items = alignSyllables(items);
-  // items = mapPhones(items, config.arpabet);
+  items = mapPhones(items, config.arpabet);
   console.log('Analyzing audio...');
   items = analyzeAudio(items);
   if (argv.validate) return;
