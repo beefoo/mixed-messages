@@ -3,6 +3,7 @@ import AudioPlayer from './AudioPlayer.js';
 import AudioSelector from './AudioSelector.js';
 import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
+import SoundEffects from './SoundEffects.js';
 import TextInterface from './TextInterface.js';
 import ToolController from './ToolController.js';
 import ToolSelector from './ToolSelector.js';
@@ -36,6 +37,7 @@ export default class App {
     this.sequencer = new Sequencer({
       audioContext: this.ctx,
     });
+    this.sfx = new SoundEffects();
     this.tools = new ToolSelector({
       onSelect: (tool) => this.onSelectTool(tool),
     });

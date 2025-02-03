@@ -43,9 +43,9 @@ export default class AudioSelector {
     const $reset = document.getElementById('button-reset');
 
     this.$selector.onchange = (_event) => this.onSelect();
-    $next.onclick = (_event) => this.next();
-    $prev.onclick = (_event) => this.prev();
-    $reset.onclick = (_event) => this.reset();
+    $next.addEventListener('click', (_event) => this.next());
+    $prev.addEventListener('click', (_event) => this.prev());
+    $reset.addEventListener('click', (_event) => this.reset());
   }
 
   loadUI(selectedIndex = 0) {

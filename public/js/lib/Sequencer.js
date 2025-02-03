@@ -33,7 +33,7 @@ export default class Sequencer {
   }
 
   loadListeners() {
-    this.$playButton.onclick = (ev) => this.togglePlay();
+    this.$playButton.addEventListener('click', (_event) => this.togglePlay());
   }
 
   pause() {
