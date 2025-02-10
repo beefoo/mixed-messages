@@ -1,6 +1,7 @@
 import AudioLoader from './AudioLoader.js';
 import AudioPlayer from './AudioPlayer.js';
 import AudioSelector from './AudioSelector.js';
+import KeyboardManager from './KeyboardManager.js';
 import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
 import SoundEffects from './SoundEffects.js';
@@ -56,6 +57,21 @@ export default class App {
         this.onPointerTap(pointer);
       },
       target: 'text-wrapper',
+    });
+    this.keyboard = new KeyboardManager({
+      childSelector: '.syll',
+      onPressArrowEnd: (pointer) => {
+        this.onPointerDragEnd(pointer);
+      },
+      onPressArrowStart: (pointer) => {
+        this.onPointerStart(pointer);
+      },
+      onPressingArrow: (pointer) => {
+        this.onPointerDrag(pointer);
+      },
+      onPressEnter: (pointer) => {
+        this.onPointerTap(pointer);
+      },
     });
     this.controller = new ToolController({
       app: this,

@@ -23,7 +23,7 @@ export default class Pointer {
     this.delta = false;
     this.deltaFromStart = false;
     this.data = {};
-    this.onStart(event);
+    if (event) this.onStart(event);
   }
 
   static getChildFromEvent(event, selector) {
