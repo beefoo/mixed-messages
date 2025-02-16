@@ -472,10 +472,10 @@ function writeMetadata(rows, directory) {
   const columns = [
     'id',
     'url',
+    'title',
     'speakers',
     'source',
     'source_url',
-    'start',
     'text',
   ];
   const dataOut = {

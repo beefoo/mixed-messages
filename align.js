@@ -21,14 +21,7 @@ function processQueue(files) {
   });
   // run alignment
 
-  // const args = ['align', '--fine_tune', '--clean', '--include_original_text', '--overwrite', audioTargetDir, 'english_us_arpa', 'english_us_arpa', alignedTargetDir];
-  // console.log(`Running: mfa ${args.join(' ')}`);
-  // spawnSync('mfa', args);
   const args = [
-    'run',
-    '-n',
-    'aligner',
-    'mfa',
     'align',
     '--fine_tune',
     '--clean',
@@ -39,8 +32,25 @@ function processQueue(files) {
     'english_us_arpa',
     alignedTargetDir,
   ];
-  console.log(`Running: mamba ${args.join(' ')}`);
-  spawnSync('mamba', args);
+  console.log(`Running: mfa ${args.join(' ')}`);
+  spawnSync('mfa', args);
+  // const args = [
+  //   'run',
+  //   '-n',
+  //   'aligner',
+  //   'mfa',
+  //   'align',
+  //   '--fine_tune',
+  //   '--clean',
+  //   '--include_original_text',
+  //   '--overwrite',
+  //   audioTargetDir,
+  //   'english_us_arpa',
+  //   'english_us_arpa',
+  //   alignedTargetDir,
+  // ];
+  // console.log(`Running: mamba ${args.join(' ')}`);
+  // spawnSync('mamba', args);
   if (argv.debug) return;
   // move synced files over
   const alignedFiles = fs.readdirSync(alignedTargetDir);

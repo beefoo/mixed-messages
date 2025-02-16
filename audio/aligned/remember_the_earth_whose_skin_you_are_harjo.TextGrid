@@ -1,0 +1,170 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 3.846644 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 3.846644 
+        intervals: size = 10 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.064 
+            text = "" 
+        intervals [2]:
+            xmin = 0.064 
+            xmax = 0.454 
+            text = "remember" 
+        intervals [3]:
+            xmin = 0.454 
+            xmax = 0.656 
+            text = "the" 
+        intervals [4]:
+            xmin = 0.656 
+            xmax = 1.054 
+            text = "earth" 
+        intervals [5]:
+            xmin = 1.054 
+            xmax = 1.468 
+            text = "whose" 
+        intervals [6]:
+            xmin = 1.468 
+            xmax = 2.022 
+            text = "skin" 
+        intervals [7]:
+            xmin = 2.022 
+            xmax = 2.874 
+            text = "" 
+        intervals [8]:
+            xmin = 2.874 
+            xmax = 3.06 
+            text = "you" 
+        intervals [9]:
+            xmin = 3.06 
+            xmax = 3.386 
+            text = "are" 
+        intervals [10]:
+            xmin = 3.386 
+            xmax = 3.846644 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 3.846644 
+        intervals: size = 25 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.064 
+            text = "" 
+        intervals [2]:
+            xmin = 0.064 
+            xmax = 0.086 
+            text = "R" 
+        intervals [3]:
+            xmin = 0.086 
+            xmax = 0.13 
+            text = "IH0" 
+        intervals [4]:
+            xmin = 0.13 
+            xmax = 0.2 
+            text = "M" 
+        intervals [5]:
+            xmin = 0.2 
+            xmax = 0.28 
+            text = "EH1" 
+        intervals [6]:
+            xmin = 0.28 
+            xmax = 0.354 
+            text = "M" 
+        intervals [7]:
+            xmin = 0.354 
+            xmax = 0.361 
+            text = "B" 
+        intervals [8]:
+            xmin = 0.361 
+            xmax = 0.454 
+            text = "ER0" 
+        intervals [9]:
+            xmin = 0.454 
+            xmax = 0.516 
+            text = "DH" 
+        intervals [10]:
+            xmin = 0.516 
+            xmax = 0.656 
+            text = "IY0" 
+        intervals [11]:
+            xmin = 0.656 
+            xmax = 0.944 
+            text = "ER1" 
+        intervals [12]:
+            xmin = 0.944 
+            xmax = 1.054 
+            text = "TH" 
+        intervals [13]:
+            xmin = 1.054 
+            xmax = 1.151 
+            text = "HH" 
+        intervals [14]:
+            xmin = 1.151 
+            xmax = 1.276 
+            text = "UW1" 
+        intervals [15]:
+            xmin = 1.276 
+            xmax = 1.468 
+            text = "Z" 
+        intervals [16]:
+            xmin = 1.468 
+            xmax = 1.534 
+            text = "S" 
+        intervals [17]:
+            xmin = 1.534 
+            xmax = 1.623 
+            text = "K" 
+        intervals [18]:
+            xmin = 1.623 
+            xmax = 1.771 
+            text = "IH1" 
+        intervals [19]:
+            xmin = 1.771 
+            xmax = 2.022 
+            text = "N" 
+        intervals [20]:
+            xmin = 2.022 
+            xmax = 2.874 
+            text = "" 
+        intervals [21]:
+            xmin = 2.874 
+            xmax = 2.918 
+            text = "Y" 
+        intervals [22]:
+            xmin = 2.918 
+            xmax = 3.06 
+            text = "UW1" 
+        intervals [23]:
+            xmin = 3.06 
+            xmax = 3.284 
+            text = "AA1" 
+        intervals [24]:
+            xmin = 3.284 
+            xmax = 3.386 
+            text = "R" 
+        intervals [25]:
+            xmin = 3.386 
+            xmax = 3.846644 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 3.846644 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 3.846644 
+            text = "Remember the earth whose skin you are" 

@@ -1,0 +1,138 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.254444 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 2.254444 
+        intervals: size = 8 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.174 
+            text = "" 
+        intervals [2]:
+            xmin = 0.174 
+            xmax = 0.546 
+            text = "go" 
+        intervals [3]:
+            xmin = 0.546 
+            xmax = 0.624 
+            text = "" 
+        intervals [4]:
+            xmin = 0.624 
+            xmax = 0.706 
+            text = "to" 
+        intervals [5]:
+            xmin = 0.706 
+            xmax = 0.916 
+            text = "your" 
+        intervals [6]:
+            xmin = 0.916 
+            xmax = 1.226 
+            text = "wide" 
+        intervals [7]:
+            xmin = 1.226 
+            xmax = 2.106 
+            text = "futures" 
+        intervals [8]:
+            xmin = 2.106 
+            xmax = 2.254444 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 2.254444 
+        intervals: size = 19 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.174 
+            text = "" 
+        intervals [2]:
+            xmin = 0.174 
+            xmax = 0.216 
+            text = "G" 
+        intervals [3]:
+            xmin = 0.216 
+            xmax = 0.546 
+            text = "OW1" 
+        intervals [4]:
+            xmin = 0.546 
+            xmax = 0.624 
+            text = "" 
+        intervals [5]:
+            xmin = 0.624 
+            xmax = 0.68 
+            text = "T" 
+        intervals [6]:
+            xmin = 0.68 
+            xmax = 0.706 
+            text = "IH0" 
+        intervals [7]:
+            xmin = 0.706 
+            xmax = 0.793 
+            text = "Y" 
+        intervals [8]:
+            xmin = 0.793 
+            xmax = 0.836 
+            text = "UH1" 
+        intervals [9]:
+            xmin = 0.836 
+            xmax = 0.916 
+            text = "R" 
+        intervals [10]:
+            xmin = 0.916 
+            xmax = 0.999 
+            text = "W" 
+        intervals [11]:
+            xmin = 0.999 
+            xmax = 1.176 
+            text = "AY1" 
+        intervals [12]:
+            xmin = 1.176 
+            xmax = 1.226 
+            text = "D" 
+        intervals [13]:
+            xmin = 1.226 
+            xmax = 1.357 
+            text = "F" 
+        intervals [14]:
+            xmin = 1.357 
+            xmax = 1.416 
+            text = "Y" 
+        intervals [15]:
+            xmin = 1.416 
+            xmax = 1.492 
+            text = "UW1" 
+        intervals [16]:
+            xmin = 1.492 
+            xmax = 1.604 
+            text = "CH" 
+        intervals [17]:
+            xmin = 1.604 
+            xmax = 1.804 
+            text = "ER0" 
+        intervals [18]:
+            xmin = 1.804 
+            xmax = 2.106 
+            text = "Z" 
+        intervals [19]:
+            xmin = 2.106 
+            xmax = 2.254444 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 2.254444 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 2.254444 
+            text = "Go to your wide futures" 

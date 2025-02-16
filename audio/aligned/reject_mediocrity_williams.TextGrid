@@ -1,0 +1,110 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.953447 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.953447 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.861 
+            text = "reject" 
+        intervals [2]:
+            xmin = 0.861 
+            xmax = 1.816 
+            text = "mediocrity" 
+        intervals [3]:
+            xmin = 1.816 
+            xmax = 1.953447 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.953447 
+        intervals: size = 17 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.096 
+            text = "R" 
+        intervals [2]:
+            xmin = 0.096 
+            xmax = 0.234 
+            text = "IH0" 
+        intervals [3]:
+            xmin = 0.234 
+            xmax = 0.366 
+            text = "JH" 
+        intervals [4]:
+            xmin = 0.366 
+            xmax = 0.574 
+            text = "EH1" 
+        intervals [5]:
+            xmin = 0.574 
+            xmax = 0.66 
+            text = "K" 
+        intervals [6]:
+            xmin = 0.66 
+            xmax = 0.861 
+            text = "T" 
+        intervals [7]:
+            xmin = 0.861 
+            xmax = 0.936 
+            text = "M" 
+        intervals [8]:
+            xmin = 0.936 
+            xmax = 0.994 
+            text = "IY2" 
+        intervals [9]:
+            xmin = 0.994 
+            xmax = 1.006 
+            text = "D" 
+        intervals [10]:
+            xmin = 1.006 
+            xmax = 1.138 
+            text = "IY0" 
+        intervals [11]:
+            xmin = 1.138 
+            xmax = 1.284 
+            text = "AA1" 
+        intervals [12]:
+            xmin = 1.284 
+            xmax = 1.369 
+            text = "K" 
+        intervals [13]:
+            xmin = 1.369 
+            xmax = 1.412 
+            text = "R" 
+        intervals [14]:
+            xmin = 1.412 
+            xmax = 1.454 
+            text = "AH0" 
+        intervals [15]:
+            xmin = 1.454 
+            xmax = 1.52 
+            text = "T" 
+        intervals [16]:
+            xmin = 1.52 
+            xmax = 1.816 
+            text = "IY0" 
+        intervals [17]:
+            xmin = 1.816 
+            xmax = 1.953447 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 1.953447 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 1.953447 
+            text = "Reject mediocrity" 

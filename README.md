@@ -13,7 +13,6 @@ conda install -c conda-forge mamba
 mamba create -n aligner -c conda-forge montreal-forced-aligner
 mamba activate aligner
 
-
 // download models and dictionary
 mfa model download acoustic english_us_arpa
 mfa model download dictionary english_us_arpa

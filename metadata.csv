@@ -1,4 +1,13 @@
-id,url,title,source,source_url,start,speakers,audio,active
-what_does_it_all_mean_la_guardia,https://youtu.be/xH9tCcrrcak?si=7cWncBdgc6Ji84iv,La Guardia Reads the Comics,WNYC,https://www.wnyc.org/,0:47,Fiorello La Guardia,what_does_it_all_mean_la_guardia.wav,TRUE
-rage_rage_against_the_dying_of_the_light_thomas,https://www.youtube.com/watch?v=g2cgcx-GJTQ,Do not go gentle into that good night ,BBC,https://www.bbc.com/,1:27,Dylan Thomas,rage_rage_against_the_dying_of_the_light_thomas.wav,TRUE
-wake_up_america_wake_up_lewis,https://www.youtube.com/watch?v=tFs1eTsokJg,March on Washington,,,7:11,John Lewis,wake_up_america_wake_up_lewis.wav,TRUE
+id,url,title,source,source_url,speakers,audio,active
+what_does_it_all_mean_la_guardia,https://www.youtube.com/watch?v=xH9tCcrrcak,La Guardia Reads the Comics,WNYC,https://www.wnyc.org/,Fiorello La Guardia,what_does_it_all_mean_la_guardia.wav,TRUE
+rage_rage_against_the_dying_of_the_light_thomas,https://www.youtube.com/watch?v=g2cgcx-GJTQ,Do not go gentle into that good night ,BBC,https://www.bbc.com/,Dylan Thomas,rage_rage_against_the_dying_of_the_light_thomas.wav,TRUE
+wake_up_america_wake_up_lewis,https://www.youtube.com/watch?v=tFs1eTsokJg,March on Washington,,,John Lewis,wake_up_america_wake_up_lewis.wav,TRUE
+but_still_like_dust_ill_rise_angelou,https://www.youtube.com/watch?v=JqOqo50LSZ0,Still I Rise,,,Maya Angelou,but_still_like_dust_ill_rise_angelou.wav,TRUE
+do_i_terrify_plath,https://www.youtube.com/watch?v=esBLxyTFDxE,Lady Lazarus,,,Sylvia Plath,do_i_terrify_plath.wav,TRUE
+go_to_your_wide_futures_nichols,https://poetryarchive.org/poem/praise-song-my-mother/,Praise Song for My Mother,The Poetry Archive,https://poetryarchive.org/,Grace Nichols,go_to_your_wide_futures_nichols.wav,TRUE
+listening_observing_and_then_acting_schisholm,http://americanradioworks.publicradio.org/features/blackspeech/schisholm.html,The Black Woman in Contemporary America,American Public Media,https://www.apmreports.org/,Shirley Chisholm,listening_observing_and_then_acting_schisholm.wav,TRUE
+reject_mediocrity_williams,https://www.youtube.com/watch?v=jzY2-GRDiPM,Coded Language,Def Poetry Jam,https://en.wikipedia.org/wiki/Def_Poetry_Jam,Saul Williams,reject_mediocrity_williams.wav,TRUE
+remember_the_earth_whose_skin_you_are_harjo,https://www.youtube.com/watch?v=HiIJFRXxa3o&t=1536,Remember,Library of Congress,https://loc.gov,Joy Harjo,remember_the_earth_whose_skin_you_are_harjo.wav,TRUE
+sun_is_silent_in_our_presence_khalvati,https://poetryarchive.org/poem/dont-ask-me-love-that-first-love/,"Don’t Ask Me, Love, for That First Love",The Poetry Archive,https://poetryarchive.org/,Mimi Khalvati,sun_is_silent_in_our_presence_khalvati.wav,TRUE
+you_are_radiant_you_are_sublime_limon,https://www.youtube.com/watch?v=yxnms7ZNSYA&t=758,The Magnificent Frigatebird,Free Library of Philadelphia,https://www.freelibrary.org/,Ada Limón,you_are_radiant_you_are_sublime_limon.wav,TRUE
+why_are_your_libraries_full_of_tears_ginsberg,https://www.youtube.com/watch?v=Orar-V3y5Sk,America,,,Allen Ginsberg,why_are_your_libraries_full_of_tears_ginsberg.wav,TRUE

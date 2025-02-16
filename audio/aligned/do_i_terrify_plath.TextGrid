@@ -1,0 +1,102 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.307075 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.307075 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.054 
+            text = "" 
+        intervals [2]:
+            xmin = 0.054 
+            xmax = 0.146 
+            text = "do" 
+        intervals [3]:
+            xmin = 0.146 
+            xmax = 0.366 
+            text = "i" 
+        intervals [4]:
+            xmin = 0.366 
+            xmax = 0.464 
+            text = "" 
+        intervals [5]:
+            xmin = 0.464 
+            xmax = 1.171 
+            text = "terrify" 
+        intervals [6]:
+            xmin = 1.171 
+            xmax = 1.307075 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.307075 
+        intervals: size = 12 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.054 
+            text = "" 
+        intervals [2]:
+            xmin = 0.054 
+            xmax = 0.068 
+            text = "D" 
+        intervals [3]:
+            xmin = 0.068 
+            xmax = 0.146 
+            text = "UW1" 
+        intervals [4]:
+            xmin = 0.146 
+            xmax = 0.366 
+            text = "AY1" 
+        intervals [5]:
+            xmin = 0.366 
+            xmax = 0.464 
+            text = "" 
+        intervals [6]:
+            xmin = 0.464 
+            xmax = 0.554 
+            text = "T" 
+        intervals [7]:
+            xmin = 0.554 
+            xmax = 0.593 
+            text = "EH1" 
+        intervals [8]:
+            xmin = 0.593 
+            xmax = 0.666 
+            text = "R" 
+        intervals [9]:
+            xmin = 0.666 
+            xmax = 0.76 
+            text = "AH0" 
+        intervals [10]:
+            xmin = 0.76 
+            xmax = 0.876 
+            text = "F" 
+        intervals [11]:
+            xmin = 0.876 
+            xmax = 1.171 
+            text = "AY2" 
+        intervals [12]:
+            xmin = 1.171 
+            xmax = 1.307075 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "utterances" 
+        xmin = 0 
+        xmax = 1.307075 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 1.307075 
+            text = "Do I terrify?" 
