@@ -14,46 +14,46 @@ item []:
         intervals: size = 11 
         intervals [1]:
             xmin = 0.0 
-            xmax = 0.284 
+            xmax = 0.264 
             text = "" 
         intervals [2]:
-            xmin = 0.284 
-            xmax = 0.606 
+            xmin = 0.264 
+            xmax = 1.316 
             text = "listening" 
         intervals [3]:
-            xmin = 0.606 
-            xmax = 0.814 
+            xmin = 1.316 
+            xmax = 1.491 
             text = "" 
         intervals [4]:
-            xmin = 0.814 
-            xmax = 1.313 
+            xmin = 1.491 
+            xmax = 2.686 
             text = "observing" 
         intervals [5]:
-            xmin = 1.313 
-            xmax = 1.494 
+            xmin = 2.686 
+            xmax = 3.137 
             text = "" 
         intervals [6]:
-            xmin = 1.494 
-            xmax = 1.656 
+            xmin = 3.137 
+            xmax = 3.626 
             text = "and" 
         intervals [7]:
-            xmin = 1.656 
-            xmax = 1.924 
+            xmin = 3.626 
+            xmax = 3.686 
             text = "" 
         intervals [8]:
-            xmin = 1.924 
-            xmax = 2.666 
+            xmin = 3.686 
+            xmax = 4.199 
             text = "then" 
         intervals [9]:
-            xmin = 2.666 
-            xmax = 3.131 
+            xmin = 4.199 
+            xmax = 4.254 
             text = "" 
         intervals [10]:
-            xmin = 3.131 
-            xmax = 4.196 
+            xmin = 4.254 
+            xmax = 4.946 
             text = "acting" 
         intervals [11]:
-            xmin = 4.196 
+            xmin = 4.946 
             xmax = 5.255306 
             text = "" 
     item [2]:
@@ -61,13 +61,13 @@ item []:
         name = "phones" 
         xmin = 0 
         xmax = 5.255306 
-        intervals: size = 29 
+        intervals: size = 30 
         intervals [1]:
             xmin = 0.0 
-            xmax = 0.284 
+            xmax = 0.264 
             text = "" 
         intervals [2]:
-            xmin = 0.284 
+            xmin = 0.264 
             xmax = 0.406 
             text = "L" 
         intervals [3]:
@@ -84,98 +84,102 @@ item []:
             text = "N" 
         intervals [6]:
             xmin = 0.536 
-            xmax = 0.594 
+            xmax = 0.568 
             text = "IH0" 
         intervals [7]:
-            xmin = 0.594 
-            xmax = 0.606 
+            xmin = 0.568 
+            xmax = 1.316 
             text = "NG" 
         intervals [8]:
-            xmin = 0.606 
-            xmax = 0.814 
+            xmin = 1.316 
+            xmax = 1.491 
             text = "" 
         intervals [9]:
-            xmin = 0.814 
-            xmax = 0.816 
-            text = "AH0" 
-        intervals [10]:
-            xmin = 0.816 
-            xmax = 0.874 
-            text = "B" 
-        intervals [11]:
-            xmin = 0.874 
-            xmax = 0.876 
-            text = "Z" 
-        intervals [12]:
-            xmin = 0.876 
-            xmax = 0.934 
-            text = "ER1" 
-        intervals [13]:
-            xmin = 0.934 
-            xmax = 0.936 
-            text = "V" 
-        intervals [14]:
-            xmin = 0.936 
-            xmax = 1.116 
-            text = "IH0" 
-        intervals [15]:
-            xmin = 1.116 
-            xmax = 1.313 
-            text = "NG" 
-        intervals [16]:
-            xmin = 1.313 
-            xmax = 1.494 
-            text = "" 
-        intervals [17]:
-            xmin = 1.494 
+            xmin = 1.491 
             xmax = 1.624 
             text = "AH0" 
-        intervals [18]:
+        intervals [10]:
             xmin = 1.624 
-            xmax = 1.654 
+            xmax = 1.934 
+            text = "B" 
+        intervals [11]:
+            xmin = 1.934 
+            xmax = 1.956 
+            text = "Z" 
+        intervals [12]:
+            xmin = 1.956 
+            xmax = 2.244 
+            text = "ER1" 
+        intervals [13]:
+            xmin = 2.244 
+            xmax = 2.312 
+            text = "V" 
+        intervals [14]:
+            xmin = 2.312 
+            xmax = 2.436 
+            text = "IH0" 
+        intervals [15]:
+            xmin = 2.436 
+            xmax = 2.686 
+            text = "NG" 
+        intervals [16]:
+            xmin = 2.686 
+            xmax = 3.137 
+            text = "" 
+        intervals [17]:
+            xmin = 3.137 
+            xmax = 3.414 
+            text = "AE1" 
+        intervals [18]:
+            xmin = 3.414 
+            xmax = 3.534 
             text = "N" 
         intervals [19]:
-            xmin = 1.654 
-            xmax = 1.656 
+            xmin = 3.534 
+            xmax = 3.626 
             text = "D" 
         intervals [20]:
-            xmin = 1.656 
-            xmax = 1.924 
+            xmin = 3.626 
+            xmax = 3.686 
             text = "" 
         intervals [21]:
-            xmin = 1.924 
-            xmax = 1.946 
+            xmin = 3.686 
+            xmax = 3.816 
             text = "DH" 
         intervals [22]:
-            xmin = 1.946 
-            xmax = 2.456 
+            xmin = 3.816 
+            xmax = 3.997 
             text = "EH1" 
         intervals [23]:
-            xmin = 2.456 
-            xmax = 2.666 
+            xmin = 3.997 
+            xmax = 4.199 
             text = "N" 
         intervals [24]:
-            xmin = 2.666 
-            xmax = 3.131 
+            xmin = 4.199 
+            xmax = 4.254 
             text = "" 
         intervals [25]:
-            xmin = 3.131 
-            xmax = 3.374 
+            xmin = 4.254 
+            xmax = 4.369 
             text = "AE1" 
         intervals [26]:
-            xmin = 3.374 
-            xmax = 3.386 
+            xmin = 4.369 
+            xmax = 4.674 
             text = "K" 
         intervals [27]:
-            xmin = 3.386 
-            xmax = 3.416 
-            text = "IH0" 
+            xmin = 4.674 
+            xmax = 4.678 
+            text = "T" 
         intervals [28]:
-            xmin = 3.416 
-            xmax = 4.196 
-            text = "NG" 
+            xmin = 4.678 
+            xmax = 4.751 
+            text = "IH0" 
         intervals [29]:
-            xmin = 4.196 
+            xmin = 4.751 
+            xmax = 4.946 
+            text = "NG" 
+        intervals [30]:
+            xmin = 4.946 
             xmax = 5.255306 
             text = "" 
     item [3]:

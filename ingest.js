@@ -310,7 +310,7 @@ function alignSyllables(items) {
     console.log(`=== Aligning syllables for ${item.id} ===`);
     const alignedItem = _.clone(item);
 
-    alignedItem.words = item.words.map((word) => {
+    alignedItem.words = item.words.map((word, i) => {
       const { text, phones } = word;
       const alignedWord = _.clone(word);
       const parsedText = nlp(text);
@@ -351,6 +351,41 @@ function alignSyllables(items) {
       alignedWord.syllables = syllables;
       delete alignedWord.phones;
       return alignedWord;
+    });
+
+    // Fix missing syllables
+    const wordCount = alignedItem.words.length;
+    const dur = alignedItem.words[wordCount - 1].end;
+    alignedItem.words.forEach((word, i) => {
+      word.syllables.forEach((syll, j) => {
+        if ('start' in syll && 'end' in syll && 'displayText' in syll) return;
+        alignedItem.words[i].syllables[j].displayText = syll.text;
+        // get the start
+        let start = 0;
+        if (j > 0) {
+          const prevSyll = alignedItem.words[i].syllables[j - 1];
+          // fix previous display text
+          alignedItem.words[i].syllables[j - 1].displayText = prevSyll.text;
+          start = prevSyll.end;
+        } else if (i > 0) {
+          const prevSyllCount = alignedItem.words[i - 1].syllables.length;
+          const prevSyll =
+            alignedItem.words[i - 1].syllables[prevSyllCount - 1];
+          start = prevSyll.end;
+        }
+        alignedItem.words[i].syllables[j].start = start;
+        // get the end
+        let end = dur;
+        const syllCount = alignedItem.words[i].syllables.length;
+        if (j < syllCount - 1) {
+          const nextSyll = alignedItem.words[i].syllables[j + 1];
+          end = nextSyll.start;
+        } else if (i < wordCount - 1) {
+          const nextSyll = alignedItem.words[i + 1].syllables[0];
+          end = nextSyll.start;
+        }
+        alignedItem.words[i].syllables[j].end = end;
+      });
     });
 
     return alignedItem;
