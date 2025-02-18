@@ -6,6 +6,7 @@ export default class TextInterface {
     const defaults = {
       el: 'text-ui',
       debug: false,
+      maxTimeBetweenSyllables: 0.05,
     };
     this.options = Object.assign(defaults, options);
     this.init();
@@ -149,6 +150,33 @@ export default class TextInterface {
     const totalDur = data.words[data.words.length - 1].end;
     const height = 15;
     const top = (100 - height) * 0.5;
+
+    // create a flattened index
+    const indices = [];
+    data.words.forEach((word, i) => {
+      word.syllables.forEach((_syll, j) => {
+        indices.push([i, j]);
+      });
+    });
+
+    // adjust time between syllables
+    const { maxTimeBetweenSyllables } = this.options;
+    const syllCount = indices.length;
+    indices.forEach((ij, index) => {
+      const [i, j] = ij;
+      if (index >= syllCount - 1) return;
+      const syll = data.words[i].syllables[j];
+      if (index === 0 && syll.start > maxTimeBetweenSyllables) {
+        data.words[i].syllables[j].start = maxTimeBetweenSyllables;
+      }
+      const [i2, j2] = indices[index + 1];
+      const nextSyll = data.words[i2].syllables[j2];
+      const delta = nextSyll.start - syll.end;
+      if (delta > maxTimeBetweenSyllables) {
+        const newEnd = nextSyll.start - maxTimeBetweenSyllables;
+        data.words[i].syllables[j].end = newEnd;
+      }
+    });
 
     // add syllable data
     let order = 0;
