@@ -49,6 +49,15 @@ export default class MathHelper {
     return String(num).padStart(size, padWith);
   }
 
+  static parseNumber(value) {
+    const string = `${value}`;
+    if (!isNaN(string) && !isNaN(parseFloat(string))) {
+      if (string.includes('.')) return parseFloat(string);
+      else return parseInt(string, 10);
+    }
+    return value;
+  }
+
   // range: (-PI, PI]
   // 3 o'clock is zero
   // clockwise goes to PI

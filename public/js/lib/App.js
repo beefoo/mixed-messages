@@ -5,6 +5,7 @@ import KeyboardManager from './KeyboardManager.js';
 import PointerManager from './PointerManager.js';
 import Sequencer from './Sequencer.js';
 import SoundEffects from './SoundEffects.js';
+import StringHelper from './StringHelper.js';
 import TextInterface from './TextInterface.js';
 import ToolController from './ToolController.js';
 import ToolSelector from './ToolSelector.js';
@@ -16,6 +17,7 @@ export default class App {
       el: 'app',
       debug: false,
       latency: 0.1, // schedule audio this far in advance (in seconds)
+      select: false,
     };
     this.options = Object.assign(defaults, options);
     this.init();
@@ -27,6 +29,7 @@ export default class App {
     this.ctx = new AudioContext();
     this.selector = new AudioSelector({
       onSelect: (item) => this.onSelectAudio(item),
+      select: options.select,
     });
     this.loader = new AudioLoader({
       audioContext: this.ctx,
@@ -155,6 +158,7 @@ export default class App {
     this.player.setBuffer(this.loader.buf);
     this.updateSequence();
     if (wasPlaying) this.sequencer.play();
+    this.updateURL();
     console.log(`Audio and data loaded for ${item.id}`);
   }
 
@@ -182,5 +186,12 @@ export default class App {
 
     // console.log(sequence);
     this.sequencer.setSequence(sequence);
+  }
+
+  updateURL() {
+    const { selectedId } = this.selector;
+    if (!selectedId) return;
+    const data = { select: selectedId };
+    StringHelper.pushURLState(data);
   }
 }

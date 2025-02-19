@@ -14,8 +14,8 @@ export default class AudioSelector {
     const defaults = {
       debug: false,
       itemEl: 'item-detail',
-      item: 0,
       onSelect: (item) => console.log(item),
+      select: false, // pass in an ID; defaults to selecting the first item
       selectEl: 'source-select',
       src: 'audio/manifest.json',
     };
@@ -31,7 +31,8 @@ export default class AudioSelector {
     this.itemCount = this.items.length;
     this.$selector = document.getElementById(options.selectEl);
     this.$item = document.getElementById(options.itemEl);
-    this.index = options.item;
+    this.selectedId = options.select;
+    this.selectIdIndex(this.selectedId);
     this.loadUI(this.index);
     this.select(this.index);
     this.loadListeners();
@@ -52,7 +53,7 @@ export default class AudioSelector {
     let html = '';
     this.items.forEach((item, i) => {
       const selected = i === selectedIndex ? 'selected' : '';
-      html += `<option value="${i}" ${selected}>"${item.text}"</option>`;
+      html += `<option value="${item.id}" ${selected}>"${item.text}"</option>`;
     });
     this.$selector.innerHTML = html;
   }
@@ -65,8 +66,9 @@ export default class AudioSelector {
   }
 
   onSelect() {
-    const index = parseInt(this.$selector.value, 10);
-    this.select(index);
+    this.selectedId = this.$selector.value;
+    this.selectIdIndex(this.selectedId);
+    this.select(this.index);
   }
 
   prev() {
@@ -86,5 +88,10 @@ export default class AudioSelector {
     const html = `by ${item.speakers}, <a href="${item.url}" target="_blank"><em>${item.title}</em></a>`;
     this.$item.innerHTML = html;
     this.options.onSelect(item);
+  }
+
+  selectIdIndex(id) {
+    const index = this.items.findIndex((item) => item.id === id);
+    this.index = index >= 0 ? index : 0;
   }
 }
