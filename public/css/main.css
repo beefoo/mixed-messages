@@ -595,6 +595,11 @@ button.syll.wrapper.visible {
   top: 0;
   left: 0;
 }
+.syll .char svg.apostrophe {
+  height: 33.333%;
+  width: 50%;
+  left: 25%;
+}
 .syll .char path {
   fill: var(--base-lightest);
 }

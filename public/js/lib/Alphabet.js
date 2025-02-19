@@ -275,12 +275,12 @@ export default class Alphabet {
         "'": {
           width: 6.6,
           height: 30,
-          html: '<svg width="6.6" height="30" viewBox="0 0 6.6 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 5.7 30 L 1 30 L 0 17 L 0 0 L 6.6 0 L 6.6 17 L 5.7 30 Z"/></svg>',
+          html: '<svg width="6.6" height="30" viewBox="0 0 6.6 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="apostrophe"><path d="M 5.7 30 L 1 30 L 0 17 L 0 0 L 6.6 0 L 6.6 17 L 5.7 30 Z"/></svg>',
         },
         '-': {
           width: 32,
           height: 4.5,
-          html: '<svg width="32" height="4.5" viewBox="0 0 32 4.5" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 32 4.5 L 0 4.5 L 0 0 L 32 0 L 32 4.5 Z"/></svg>',
+          html: '<svg width="32" height="4.5" viewBox="0 0 32 4.5" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="dash"><path d="M 32 4.5 L 0 4.5 L 0 0 L 32 0 L 32 4.5 Z"/></svg>',
         },
       },
     };
