@@ -144,6 +144,8 @@ export default class App {
     const { audioPath } = this.options;
     const audioURL = `${audioPath}${item.id}.mp3`;
     const dataURL = `${audioPath}${item.id}.json`;
+    const wasPlaying = this.sequencer.isPlaying;
+    if (wasPlaying) this.sequencer.pause();
     const [audioResp, dataResp] = await Promise.all([
       this.loader.loadFromURL(audioURL),
       this.ui.loadFromURL(dataURL),
@@ -152,6 +154,7 @@ export default class App {
     // set the audio buffer
     this.player.setBuffer(this.loader.buf);
     this.updateSequence();
+    if (wasPlaying) this.sequencer.play();
     console.log(`Audio and data loaded for ${item.id}`);
   }
 
