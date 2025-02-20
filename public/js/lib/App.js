@@ -87,11 +87,11 @@ export default class App {
 
   getSequenceItems(syll, audioOptions = {}) {
     const { latency } = this.options;
-    const { id, start, end, $el, $wrapper } = syll;
+    const { id, start, end, seqStart, $el, $wrapper } = syll;
     const playerItem = {
       id: `player-${id}`,
       group: id,
-      start,
+      start: seqStart,
       latency,
       task: (when, options) => {
         this.player.play(start, end, when, options);
@@ -100,7 +100,7 @@ export default class App {
     const uiItem = {
       id: `ui-${id}`,
       group: id,
-      start,
+      start: seqStart,
       latency: 0,
       task: (_when, _options) => {
         $el.classList.remove('playing');

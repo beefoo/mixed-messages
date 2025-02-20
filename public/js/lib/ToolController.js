@@ -211,7 +211,6 @@ export default class ToolController {
         'bass',
         'playbackRate',
         'reverse',
-        'start',
         'treble',
         'trim',
         'volume',
@@ -318,9 +317,7 @@ export default class ToolController {
     let nStart = syllLeft / 100.0;
     if (nStart < 0 || nStart > 1.0) nStart = MathHelper.mod(nStart, 1.0); // wrap it if out of bounds
     const newStart = sequencer.duration * nStart;
-    const newEnd = newStart + syllable.duration;
-    this.ui.data.words[i].syllables[j].start = newStart;
-    this.ui.data.words[i].syllables[j].end = newEnd;
+    this.ui.data.words[i].syllables[j].seqStart = newStart;
     sequence.forEach((item, index) => {
       if (item.group === syllable.id) {
         this.sequencer.sequence[index].start = newStart;
@@ -372,9 +369,7 @@ export default class ToolController {
     let nStart = syllLeft / 100.0;
     if (nStart < 0 || nStart > 1.0) nStart = MathHelper.mod(nStart, 1.0); // wrap it if out of bounds
     const newStart = sequencer.duration * nStart;
-    const newEnd = newStart + syllable.duration;
-    this.ui.data.words[i].syllables[j].start = newStart;
-    this.ui.data.words[i].syllables[j].end = newEnd;
+    this.ui.data.words[i].syllables[j].seqStart = newStart;
     const scale = MathHelper.lerp(
       scaleRange[0],
       scaleRange[1],

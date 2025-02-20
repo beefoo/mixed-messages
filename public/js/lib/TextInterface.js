@@ -197,6 +197,7 @@ export default class TextInterface {
           height,
         };
         const syllData = {
+          seqStart: start,
           duration,
           wordIndex: i,
           index: j,
