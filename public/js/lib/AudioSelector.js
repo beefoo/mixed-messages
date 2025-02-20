@@ -85,7 +85,7 @@ export default class AudioSelector {
   select(index) {
     this.index = index;
     const item = this.items[index];
-    const html = `by ${item.speakers}, <a href="${item.url}" target="_blank"><em>${item.title}</em></a>`;
+    const html = `from <a href="${item.url}" target="_blank"><em>${item.title}</em></a> by ${item.speakers}`;
     this.$item.innerHTML = html;
     this.options.onSelect(item);
   }
