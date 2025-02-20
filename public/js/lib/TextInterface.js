@@ -64,6 +64,8 @@ export default class TextInterface {
     const newSyll = structuredClone(
       CollectionHelper.objectOmit(syll, ['$el', '$wrapper']),
     );
+    const oldId = syll.$el.id;
+    const oldWrapperId = syll.$wrapper.id;
     const $newEl = syll.$el.cloneNode(true);
     const $newWrapper = syll.$wrapper.cloneNode(true);
     this.$el.append($newEl);
@@ -72,8 +74,12 @@ export default class TextInterface {
     newSyll.id = `syll-${wordIndex}-${newIndex}`;
     $newEl.id = newSyll.id;
     $newEl.setAttribute('data-syll', newIndex);
+    $newEl.querySelector(`#${oldId}-trim-line`).id = `${newSyll.id}-trim-line`;
     $newWrapper.id = `${newSyll.id}-wrapper`;
     $newWrapper.setAttribute('data-syll', newIndex);
+    $newWrapper.querySelector(`#${oldWrapperId}-trim-line`).id =
+      `${newSyll.id}-wrapper-trim-line`;
+
     newSyll.$el = $newEl;
     newSyll.$wrapper = $newWrapper;
     newSyll.index = newIndex;
