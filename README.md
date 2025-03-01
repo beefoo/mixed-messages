@@ -1,6 +1,6 @@
 # Mixed Messages
 
-A web app for messing with people's words
+A web app for playing with people's words
 
 ## Intallation
 

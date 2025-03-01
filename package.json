@@ -1,6 +1,6 @@
 {
   "name": "mixed-messages",
-  "description": "A web app for messing with people's words",
+  "description": "A web app for playing with people's words",
   "scripts": {
     "align": "node align.js",
     "align-debug": "node align.js --debug",
